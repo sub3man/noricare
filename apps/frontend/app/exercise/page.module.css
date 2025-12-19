@@ -73,6 +73,24 @@
     transform: scale(0.98);
 }
 
+.exerciseCard.completedCard {
+    opacity: 0.7;
+    border: 2px solid var(--color-success);
+    position: relative;
+}
+
+.completedBadge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--color-success);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
 .exerciseHeader {
     display: flex;
     justify-content: space-between;

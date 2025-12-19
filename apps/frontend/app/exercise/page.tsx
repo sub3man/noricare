@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
+import ExerciseSession from '@/components/ExerciseSession';
 
 type Category = 'ALL' | '스트레칭' | '무산소' | '유산소';
 
@@ -130,6 +131,8 @@ const categories = [
 export default function ExercisePage() {
     const [selectedCategory, setSelectedCategory] = useState<Category>('ALL');
     const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+    const [activeSession, setActiveSession] = useState<Exercise | null>(null);
+    const [completedExercises, setCompletedExercises] = useState<number[]>([]);
 
     const filteredExercises = selectedCategory === 'ALL'
         ? allExercises
@@ -190,12 +193,14 @@ export default function ExercisePage() {
             <section className={styles.exerciseList}>
                 {filteredExercises.map((exercise) => {
                     const intensity = getIntensityLabel(exercise.intensity);
+                    const isCompleted = completedExercises.includes(exercise.id);
                     return (
                         <div
                             key={exercise.id}
-                            className={`card ${styles.exerciseCard}`}
+                            className={`card ${styles.exerciseCard} ${isCompleted ? styles.completedCard : ''}`}
                             onClick={() => setSelectedExercise(exercise)}
                         >
+                            {isCompleted && <div className={styles.completedBadge}>✓ 완료</div>}
                             <div className={styles.exerciseHeader}>
                                 <div
                                     className={styles.categoryBadge}
@@ -296,7 +301,13 @@ export default function ExercisePage() {
                         )}
 
                         <div className={styles.modalActions}>
-                            <button className="btn btn-primary btn-lg btn-block">
+                            <button
+                                className="btn btn-primary btn-lg btn-block"
+                                onClick={() => {
+                                    setActiveSession(selectedExercise);
+                                    setSelectedExercise(null);
+                                }}
+                            >
                                 운동 시작하기
                             </button>
                             <button
@@ -308,6 +319,18 @@ export default function ExercisePage() {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {/* Exercise Session */}
+            {activeSession && (
+                <ExerciseSession
+                    exercise={activeSession}
+                    onComplete={() => {
+                        setCompletedExercises([...completedExercises, activeSession.id]);
+                        setActiveSession(null);
+                    }}
+                    onClose={() => setActiveSession(null)}
+                />
             )}
         </div>
     );
