@@ -4,11 +4,22 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--bg-primary);
+    background: linear-gradient(180deg, #e8f4fc 0%, #d0ebff 50%, #a5d8ff 100%);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .container {
@@ -18,7 +29,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: var(--bg-primary);
+    background: transparent;
 }
 
 /* 헤더 */
@@ -34,18 +45,20 @@
     height: 40px;
     border-radius: 50%;
     border: none;
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
     font-size: 18px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .closeBtn:hover {
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
 }
 
 .setIndicator {
@@ -66,17 +79,19 @@
 .exerciseName {
     font-size: 28px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #1a365d;
     margin-bottom: 8px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 .exerciseType {
     display: inline-block;
-    background: var(--bg-tertiary);
+    background: rgba(255, 255, 255, 0.8);
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 14px;
-    color: var(--text-secondary);
+    color: #2563eb;
+    font-weight: 500;
 }
 
 /* 메인 디스플레이 */
@@ -97,22 +112,22 @@
 }
 
 .timerCircle {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
-    border: 8px solid;
+    border: 10px solid;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-secondary);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 15px 50px rgba(37, 99, 235, 0.25);
 }
 
 .timerText {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 700;
     font-family: 'SF Mono', 'Roboto Mono', monospace;
-    color: var(--text-primary);
+    color: #1a365d;
 }
 
 .repDisplay {
