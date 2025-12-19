@@ -1,6 +1,6 @@
 # Nori Care Frontend
 
-토스(Toss) 디자인 시스템을 기반으로 한 Nori Care 고객용 프론트엔드 애플리케이션입니다.
+리브라이블리(LIVELIVELY) 디자인 시스템을 기반으로 한 Noricare 고객용 프론트엔드 애플리케이션입니다.
 
 ## 기술 스택
 
