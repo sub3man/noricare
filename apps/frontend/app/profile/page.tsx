@@ -21,10 +21,10 @@ interface HealthSummary {
 export default function ProfilePage() {
     const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState<UserProfile>({
-        name: '김지현',
-        email: 'jihyun.kim@email.com',
+        name: '관리자',
+        email: 'admin@livelively.kr',
         birthDate: '1989-05-15',
-        gender: 'F',
+        gender: 'M',
         phone: '010-1234-5678',
     });
 

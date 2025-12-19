@@ -1,22 +1,35 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
+import ExerciseSession from '@/components/ExerciseSession';
+
+interface TodayExercise {
+    id: number;
+    name: string;
+    type: string;
+    sets: number;
+    reps: string;
+    intensity: number;
+    completed: boolean;
+}
 
 export default function Home() {
-    // Mock data - in production, this would come from API
     const user = {
-        name: '김지현',
+        name: '관리자',
         completedToday: 2,
         totalToday: 4,
     };
 
-    const todayExercises = [
-        { id: 1, name: '스쿼트', sets: 3, reps: 12, category: 'STRENGTH', completed: true },
-        { id: 2, name: '런지', sets: 3, reps: 10, category: 'STRENGTH', completed: true },
-        { id: 3, name: '플랭크', sets: 3, reps: 30, category: 'STRENGTH', completed: false },
-        { id: 4, name: '스트레칭', sets: 1, reps: 15, category: 'FLEXIBILITY', completed: false },
-    ];
+    const [todayExercises, setTodayExercises] = useState<TodayExercise[]>([
+        { id: 1, name: '스쿼트', type: '무산소', sets: 3, reps: '12회', intensity: 6, completed: true },
+        { id: 2, name: '런지', type: '무산소', sets: 3, reps: '10회', intensity: 7, completed: true },
+        { id: 3, name: '플랭크', type: '무산소', sets: 3, reps: '30초', intensity: 8, completed: false },
+        { id: 4, name: '스트레칭', type: '스트레칭', sets: 1, reps: '15초', intensity: 2, completed: false },
+    ]);
+
+    const [activeSession, setActiveSession] = useState<TodayExercise | null>(null);
 
     const healthSummary = {
         sppbScore: 9,
@@ -25,25 +38,42 @@ export default function Home() {
         streak: 5,
     };
 
-    const getCategoryColor = (category: string) => {
-        switch (category) {
-            case 'STRENGTH': return 'var(--blue-500)';
-            case 'AEROBIC': return 'var(--green-500)';
-            case 'FLEXIBILITY': return 'var(--orange-500)';
-            case 'BALANCE': return 'var(--teal-500)';
+    const getCategoryColor = (type: string) => {
+        switch (type) {
+            case '무산소': return 'var(--blue-500)';
+            case '유산소': return 'var(--red-500)';
+            case '스트레칭': return 'var(--orange-500)';
             default: return 'var(--grey-500)';
         }
     };
 
-    const getCategoryLabel = (category: string) => {
-        switch (category) {
-            case 'STRENGTH': return '근력';
-            case 'AEROBIC': return '유산소';
-            case 'FLEXIBILITY': return '유연성';
-            case 'BALANCE': return '균형';
-            default: return category;
+    const getCategoryLabel = (type: string) => {
+        switch (type) {
+            case '무산소': return '근력';
+            case '유산소': return '유산소';
+            case '스트레칭': return '스트레칭';
+            default: return type;
         }
     };
+
+    const handleStartExercise = (exercise: TodayExercise) => {
+        if (!exercise.completed) {
+            setActiveSession(exercise);
+        }
+    };
+
+    const handleCompleteExercise = () => {
+        if (activeSession) {
+            setTodayExercises(prev =>
+                prev.map(ex =>
+                    ex.id === activeSession.id ? { ...ex, completed: true } : ex
+                )
+            );
+            setActiveSession(null);
+        }
+    };
+
+    const completedCount = todayExercises.filter(e => e.completed).length;
 
     return (
         <div className="container animate-fade-in">
@@ -68,8 +98,8 @@ export default function Home() {
                     <div>
                         <p className="caption">오늘의 진행도</p>
                         <p className={styles.progressValue}>
-                            <span className={styles.progressCurrent}>{user.completedToday}</span>
-                            <span className={styles.progressTotal}>/ {user.totalToday}</span>
+                            <span className={styles.progressCurrent}>{completedCount}</span>
+                            <span className={styles.progressTotal}>/ {todayExercises.length}</span>
                         </p>
                     </div>
                     <div className={styles.progressCircle}>
@@ -82,14 +112,14 @@ export default function Home() {
                             />
                             <path
                                 className={styles.circle}
-                                strokeDasharray={`${(user.completedToday / user.totalToday) * 100}, 100`}
+                                strokeDasharray={`${(completedCount / todayExercises.length) * 100}, 100`}
                                 d="M18 2.0845
                   a 15.9155 15.9155 0 0 1 0 31.831
                   a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
                         </svg>
                         <span className={styles.progressPercent}>
-                            {Math.round((user.completedToday / user.totalToday) * 100)}%
+                            {Math.round((completedCount / todayExercises.length) * 100)}%
                         </span>
                     </div>
                 </div>
@@ -140,16 +170,17 @@ export default function Home() {
                         <div
                             key={exercise.id}
                             className={`card ${styles.exerciseItem} ${exercise.completed ? styles.completed : ''}`}
+                            onClick={() => handleStartExercise(exercise)}
                         >
                             <div
                                 className={styles.exerciseBadge}
-                                style={{ backgroundColor: getCategoryColor(exercise.category) }}
+                                style={{ backgroundColor: getCategoryColor(exercise.type) }}
                             >
-                                {getCategoryLabel(exercise.category)}
+                                {getCategoryLabel(exercise.type)}
                             </div>
                             <div className={styles.exerciseInfo}>
                                 <h4 className={styles.exerciseName}>{exercise.name}</h4>
-                                <p className="caption">{exercise.sets}세트 × {exercise.reps}회</p>
+                                <p className="caption">{exercise.sets}세트 × {exercise.reps}</p>
                             </div>
                             <div className={styles.exerciseStatus}>
                                 {exercise.completed ? (
@@ -173,6 +204,15 @@ export default function Home() {
                 </div>
                 <span className={styles.motivationEmoji}>💪</span>
             </section>
+
+            {/* Exercise Session Modal */}
+            {activeSession && (
+                <ExerciseSession
+                    exercise={activeSession}
+                    onComplete={handleCompleteExercise}
+                    onClose={() => setActiveSession(null)}
+                />
+            )}
         </div>
     );
 }
