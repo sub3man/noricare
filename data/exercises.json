@@ -1,0 +1,802 @@
+[
+    {
+        "id": 1,
+        "name": "목 천천히 좌우로 돌리기",
+        "type": "스트레칭",
+        "sets": 2,
+        "reps": "5회",
+        "intensity": 2
+    },
+    {
+        "id": 2,
+        "name": "고개 숙여 뒷목 늘리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 2
+    },
+    {
+        "id": 3,
+        "name": "고개 뒤로 젖혀 앞목 늘리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 2
+    },
+    {
+        "id": 4,
+        "name": "어깨 으쓱하기 (슈러그)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 3
+    },
+    {
+        "id": 5,
+        "name": "양팔 크게 원 그리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 3
+    },
+    {
+        "id": 6,
+        "name": "한 팔 가슴 앞으로 당기기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "20초",
+        "intensity": 3
+    },
+    {
+        "id": 7,
+        "name": "등 뒤로 깍지 끼고 펴기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 4
+    },
+    {
+        "id": 8,
+        "name": "양손 깍지 끼고 기지개 켜기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 3
+    },
+    {
+        "id": 9,
+        "name": "옆구리 늘리기 (좌)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 4
+    },
+    {
+        "id": 10,
+        "name": "옆구리 늘리기 (우)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 4
+    },
+    {
+        "id": 11,
+        "name": "손목 털기",
+        "type": "스트레칭",
+        "sets": 2,
+        "reps": "20초",
+        "intensity": 1
+    },
+    {
+        "id": 12,
+        "name": "손바닥 앞으로 당기기",
+        "type": "스트레칭",
+        "sets": 2,
+        "reps": "15초",
+        "intensity": 2
+    },
+    {
+        "id": 13,
+        "name": "의자에 앉아 몸통 비틀기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 3
+    },
+    {
+        "id": 14,
+        "name": "고양이 자세 (등 둥글게)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "10초",
+        "intensity": 3
+    },
+    {
+        "id": 15,
+        "name": "소 자세 (허리 펴기)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "10초",
+        "intensity": 3
+    },
+    {
+        "id": 16,
+        "name": "아기 자세 (허리 이완)",
+        "type": "스트레칭",
+        "sets": 2,
+        "reps": "30초",
+        "intensity": 1
+    },
+    {
+        "id": 17,
+        "name": "누워서 무릎 가슴으로 당기기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 2
+    },
+    {
+        "id": 18,
+        "name": "누워서 허리 비틀기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 3
+    },
+    {
+        "id": 19,
+        "name": "앉아서 햄스트링 늘리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "20초",
+        "intensity": 4
+    },
+    {
+        "id": 20,
+        "name": "서서 발목 잡고 허벅지 늘리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 5
+    },
+    {
+        "id": 21,
+        "name": "벽 밀며 종아리 늘리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "20초",
+        "intensity": 4
+    },
+    {
+        "id": 22,
+        "name": "발목 돌리기",
+        "type": "스트레칭",
+        "sets": 2,
+        "reps": "10회",
+        "intensity": 1
+    },
+    {
+        "id": 23,
+        "name": "나비 자세 (골반 이완)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 3
+    },
+    {
+        "id": 24,
+        "name": "코브라 자세 (복부 이완)",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 4
+    },
+    {
+        "id": 25,
+        "name": "서서 상체 숙이기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "10초",
+        "intensity": 4
+    },
+    {
+        "id": 26,
+        "name": "견갑골 모으기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 3
+    },
+    {
+        "id": 27,
+        "name": "귀 잡고 목 옆으로 당기기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 3
+    },
+    {
+        "id": 28,
+        "name": "팔꿈치 잡고 팔 뒤로 넘기기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "15초",
+        "intensity": 4
+    },
+    {
+        "id": 29,
+        "name": "발가락 꼼지락 거리기",
+        "type": "스트레칭",
+        "sets": 3,
+        "reps": "20회",
+        "intensity": 1
+    },
+    {
+        "id": 30,
+        "name": "전신 기지개 켜기",
+        "type": "스트레칭",
+        "sets": 1,
+        "reps": "10초",
+        "intensity": 1
+    },
+    {
+        "id": 31,
+        "name": "벽 짚고 푸쉬업",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 5
+    },
+    {
+        "id": 32,
+        "name": "무릎 대고 푸쉬업",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 6
+    },
+    {
+        "id": 33,
+        "name": "정자세 푸쉬업",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "8회",
+        "intensity": 8
+    },
+    {
+        "id": 34,
+        "name": "의자 잡고 스쿼트",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 5
+    },
+    {
+        "id": 35,
+        "name": "맨몸 하프 스쿼트",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 6
+    },
+    {
+        "id": 36,
+        "name": "맨몸 풀 스쿼트",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 7
+    },
+    {
+        "id": 37,
+        "name": "와이드 스쿼트",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 7
+    },
+    {
+        "id": 38,
+        "name": "벽 기대고 버티기 (월 싯)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 6
+    },
+    {
+        "id": 39,
+        "name": "제자리 런지 (오른발)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 7
+    },
+    {
+        "id": 40,
+        "name": "제자리 런지 (왼발)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 7
+    },
+    {
+        "id": 41,
+        "name": "까치발 들기 (카프레이즈)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "20회",
+        "intensity": 4
+    },
+    {
+        "id": 42,
+        "name": "엉덩이 들기 (브릿지)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 43,
+        "name": "한 발 들고 브릿지",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 7
+    },
+    {
+        "id": 44,
+        "name": "엎드려 다리 뒤로 차기 (힙 익스텐션)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 45,
+        "name": "옆으로 누워 다리 들기",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 46,
+        "name": "슈퍼맨 자세 (등 근육 강화)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 6
+    },
+    {
+        "id": 47,
+        "name": "플랭크 (무릎 대고)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 6
+    },
+    {
+        "id": 48,
+        "name": "플랭크 (정자세)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 8
+    },
+    {
+        "id": 49,
+        "name": "버드독 (팔다리 교차 들기)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 6
+    },
+    {
+        "id": 50,
+        "name": "데드버그 (코어 강화)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 5
+    },
+    {
+        "id": 51,
+        "name": "윗몸 일으키기 (크런치)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 6
+    },
+    {
+        "id": 52,
+        "name": "누워서 다리 들기 (레그 레이즈)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 7
+    },
+    {
+        "id": 53,
+        "name": "의자에 앉아 무릎 펴기",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 4
+    },
+    {
+        "id": 54,
+        "name": "물병 들고 팔 굽히기 (컬)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 4
+    },
+    {
+        "id": 55,
+        "name": "물병 들고 팔 위로 밀기 (프레스)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 5
+    },
+    {
+        "id": 56,
+        "name": "밴드 잡고 양옆으로 벌리기",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 57,
+        "name": "밴드 발에 걸고 당기기 (로우)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 58,
+        "name": "사이드 런지",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 7
+    },
+    {
+        "id": 59,
+        "name": "굿모닝 (인사하며 허리 강화)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 60,
+        "name": "의자 딥스 (팔 뒤쪽)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 7
+    },
+    {
+        "id": 61,
+        "name": "스탠딩 사이드 레그 레이즈",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 62,
+        "name": "스탠딩 백 레그 레이즈",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 5
+    },
+    {
+        "id": 63,
+        "name": "투명 의자 자세 버티기",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "20초",
+        "intensity": 6
+    },
+    {
+        "id": 64,
+        "name": "바이시클 크런치",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 8
+    },
+    {
+        "id": 65,
+        "name": "러시안 트위스트",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "20회",
+        "intensity": 7
+    },
+    {
+        "id": 66,
+        "name": "마운틴 클라이머 (느리게)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 7
+    },
+    {
+        "id": 67,
+        "name": "배 깔고 상체 들기 (백익스텐션)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "12회",
+        "intensity": 5
+    },
+    {
+        "id": 68,
+        "name": "누워서 엉덩이 조이기",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "20초",
+        "intensity": 4
+    },
+    {
+        "id": 69,
+        "name": "계단 오르기 자세 (스텝업)",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 6
+    },
+    {
+        "id": 70,
+        "name": "한 발로 균형 잡고 서기",
+        "type": "무산소",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 5
+    },
+    {
+        "id": 71,
+        "name": "제자리 걷기",
+        "type": "유산소",
+        "sets": 1,
+        "reps": "5분",
+        "intensity": 3
+    },
+    {
+        "id": 72,
+        "name": "빠르게 제자리 걷기",
+        "type": "유산소",
+        "sets": 1,
+        "reps": "3분",
+        "intensity": 5
+    },
+    {
+        "id": 73,
+        "name": "제자리 뛰기 (가볍게)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 6
+    },
+    {
+        "id": 74,
+        "name": "무릎 높이 들어 걷기 (니업)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "20회",
+        "intensity": 5
+    },
+    {
+        "id": 75,
+        "name": "팔 벌려 뛰기 (PT체조)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 7
+    },
+    {
+        "id": 76,
+        "name": "슬로우 버피 (천천히 엎드렸다 일어나기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 8
+    },
+    {
+        "id": 77,
+        "name": "사이드 스텝 (좌우 이동)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 4
+    },
+    {
+        "id": 78,
+        "name": "엉덩이 차며 뛰기 (벗킥)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 6
+    },
+    {
+        "id": 79,
+        "name": "제자리 줄넘기 (흉내)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 6
+    },
+    {
+        "id": 80,
+        "name": "스케이터 점프 (좌우 점프)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 7
+    },
+    {
+        "id": 81,
+        "name": "앞뒤로 박수 치며 걷기",
+        "type": "유산소",
+        "sets": 1,
+        "reps": "3분",
+        "intensity": 4
+    },
+    {
+        "id": 82,
+        "name": "쉐도우 복싱 (허공 펀치)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 6
+    },
+    {
+        "id": 83,
+        "name": "암 워킹 (손으로 걷기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "8회",
+        "intensity": 8
+    },
+    {
+        "id": 84,
+        "name": "트위스트 점프",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "20회",
+        "intensity": 6
+    },
+    {
+        "id": 85,
+        "name": "하늘 찌르며 걷기",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "2분",
+        "intensity": 5
+    },
+    {
+        "id": 86,
+        "name": "앞차기 하며 걷기",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 6
+    },
+    {
+        "id": 87,
+        "name": "V-스텝 (발 벌렸다 모으기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 5
+    },
+    {
+        "id": 88,
+        "name": "그레이프바인 (스텝 꼬아 걷기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 5
+    },
+    {
+        "id": 89,
+        "name": "제자리 점프 스쿼트",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 9
+    },
+    {
+        "id": 90,
+        "name": "마운틴 클라이머 (빠르게)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 9
+    },
+    {
+        "id": 91,
+        "name": "런지 니업 (런지 후 무릎 들기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "10회",
+        "intensity": 8
+    },
+    {
+        "id": 92,
+        "name": "플랭크 잭 (플랭크 상태로 다리 벌리기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "15회",
+        "intensity": 9
+    },
+    {
+        "id": 93,
+        "name": "하이 니 (빠르게 무릎 들기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "30초",
+        "intensity": 8
+    },
+    {
+        "id": 94,
+        "name": "스탠딩 크런치 (서서 무릎 팔꿈치 닿기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "20회",
+        "intensity": 6
+    },
+    {
+        "id": 95,
+        "name": "꽃게 걸음 (옆으로 걷기)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 5
+    },
+    {
+        "id": 96,
+        "name": "뒤로 걷기 (안전한 곳에서)",
+        "type": "유산소",
+        "sets": 1,
+        "reps": "3분",
+        "intensity": 4
+    },
+    {
+        "id": 97,
+        "name": "팔 돌리며 제자리 뛰기",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "1분",
+        "intensity": 7
+    },
+    {
+        "id": 98,
+        "name": "와이드 스쿼트 펄스 (짧게 반동)",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "20초",
+        "intensity": 7
+    },
+    {
+        "id": 99,
+        "name": "수건 잡고 만세하며 걷기",
+        "type": "유산소",
+        "sets": 3,
+        "reps": "3분",
+        "intensity": 4
+    },
+    {
+        "id": 100,
+        "name": "전신 털기 (쿨다운)",
+        "type": "유산소",
+        "sets": 1,
+        "reps": "2분",
+        "intensity": 2
+    }
+]
