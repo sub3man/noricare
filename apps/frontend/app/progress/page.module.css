@@ -1,0 +1,310 @@
+/* Header */
+.header {
+    padding: var(--spacing-4) 0;
+}
+
+/* Weekly Card */
+.weeklyCard {
+    background: linear-gradient(135deg, #ffffff 0%, var(--grey-50) 100%);
+}
+
+.weekGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--spacing-2);
+    margin: var(--spacing-4) 0;
+}
+
+.dayItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-2);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.dayLabel {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
+}
+
+.dayIcon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background: var(--grey-100);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--grey-400);
+}
+
+.dayItem.completed .dayIcon {
+    background: var(--color-success);
+    color: #ffffff;
+}
+
+.dayItem.partial .dayIcon {
+    background: var(--color-warning);
+    color: #ffffff;
+}
+
+.dayItem.today .dayIcon {
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    background: var(--blue-50);
+}
+
+.dayCount {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}
+
+.weekStats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-divider);
+}
+
+.weekStatItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weekStatValue {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.weekStatLabel {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-1);
+}
+
+/* Quick Actions */
+.quickActions {
+    margin-top: var(--spacing-5);
+}
+
+/* Stats Card */
+.statsCard {
+    background: #ffffff;
+}
+
+.progressBars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.progressItem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.progressHeader {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.progressPercent {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+/* History */
+.historyList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    padding-bottom: var(--spacing-8);
+}
+
+.historyItem {
+    padding: var(--spacing-4);
+}
+
+.historyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-3);
+}
+
+.historyDate {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.historySatisfaction {
+    font-size: 24px;
+}
+
+.historyExercises {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+}
+
+.exerciseTag {
+    padding: var(--spacing-1) var(--spacing-3);
+    background: var(--grey-100);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}
+
+.historyFooter {
+    padding-top: var(--spacing-2);
+    border-top: 1px solid var(--color-divider);
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: var(--z-modal);
+    animation: fadeIn 0.2s ease;
+}
+
+.modal {
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    background: #ffffff;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding: var(--spacing-6);
+    padding-bottom: calc(var(--spacing-8) + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+.feedbackSection {
+    margin-bottom: var(--spacing-6);
+}
+
+.feedbackLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-3);
+}
+
+.rpeValue {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--grey-200);
+    appearance: none;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+.sliderLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+}
+
+.toggleGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-2);
+}
+
+.toggleBtn {
+    padding: var(--spacing-3);
+    background: var(--grey-100);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.toggleBtn:hover {
+    background: var(--grey-50);
+    border-color: var(--grey-300);
+}
+
+.toggleBtn.active {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.satisfactionGroup {
+    display: flex;
+    justify-content: space-around;
+}
+
+.satisfactionBtn {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    font-size: 24px;
+    background: var(--grey-100);
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.satisfactionBtn:hover {
+    transform: scale(1.1);
+}
+
+.satisfactionBtn.active {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary);
+    transform: scale(1.15);
+}
+
+.modalActions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-6);
+}

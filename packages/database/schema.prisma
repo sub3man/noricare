@@ -1,0 +1,157 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------
+// User & Role Management
+// ------------------------------------------
+
+model CoachExpert {
+  id             String        @id @default(uuid())
+  name           String
+  email          String        @unique
+  passwordHash   String
+  certification  String?       // e.g., "KRIEE-Level1"
+  rating         Float         @default(0.0)
+  memberCount    Int           @default(0)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  seniors        UserSenior[]
+
+  @@index([email])
+}
+
+model UserSenior {
+  id             String        @id @default(uuid())
+  name           String
+  birthDate      DateTime
+  gender         String        // 'M' | 'F'
+  address        String?
+  // Medical Background (Structured)
+  hasHypertension Boolean      @default(false)
+  hasDiabetes     Boolean      @default(false)
+  hasArthritis    Boolean      @default(false)
+  medicationInfo  String?      // Encrypted Text
+
+  // Relationships
+  guardianId     String?       // FK representation
+  coachId        String?
+  coach          CoachExpert?  @relation(fields: [coachId], references: [id])
+
+  assessments    HealthAssessment[]
+  prescriptions  ExercisePrescription[]
+  nutritionLogs  NutritionLog[]
+  feedbackLogs   FeedbackLog[]
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([coachId])
+}
+
+// ------------------------------------------
+// PHR & Health Data (Assessment)
+// ------------------------------------------
+
+model HealthAssessment {
+  id             String      @id @default(uuid())
+  seniorId       String
+  senior         UserSenior  @relation(fields: [seniorId], references: [id])
+  
+  measuredAt     DateTime    @default(now())
+  
+  // Functional Tests
+  sppbScore      Float?      // 0-12
+  gaitSpeed      Float?      // m/s
+  balanceScore   Float?      // BBS or similar
+  tugSeconds     Float?      // Time Up and Go
+  
+  // Body Composition
+  muscleMass     Float?      // kg
+  bodyFatRate    Float?      // %
+  
+  // Lifestyle Factors (Snapshot)
+  sleepHours     Float?
+  proteinIntake  Float?      // Daily avg estimate
+  
+  createdAt      DateTime    @default(now())
+
+  @@index([seniorId, measuredAt])
+}
+
+// ------------------------------------------
+// Prescription & Content
+// ------------------------------------------
+
+model ExercisePrescription {
+  id             String      @id @default(uuid())
+  seniorId       String
+  senior         UserSenior  @relation(fields: [seniorId], references: [id])
+  
+  createdAt      DateTime    @default(now())
+  validUntil     DateTime?
+  
+  // Routine Details
+  category       String      // 'AEROBIC', 'STRENGTH', 'FLEXIBILITY', 'BALANCE'
+  exerciseName   String
+  intensity      Int         // 1-10 or mapped level
+  setCount       Int         @default(1)
+  repCount       Int         @default(10)
+  durationMin    Int?        // For cardio
+  
+  videoUrl       String?
+  
+  // Safety Flags
+  isContraindicated Boolean @default(false)
+
+  feedbacks      FeedbackLog[]
+
+  @@index([seniorId, createdAt])
+}
+
+// ------------------------------------------
+// Daily Logs & Feedback
+// ------------------------------------------
+
+model NutritionLog {
+  id             String      @id @default(uuid())
+  seniorId       String
+  senior         UserSenior  @relation(fields: [seniorId], references: [id])
+  
+  logDate        DateTime    @default(now())
+  proteinAmount  Float       // g
+  waterIntake    Float       // ml
+  mealPhotoUrl   String?
+  
+  createdAt      DateTime    @default(now())
+}
+
+model FeedbackLog {
+  id             String      @id @default(uuid())
+  seniorId       String
+  senior         UserSenior  @relation(fields: [seniorId], references: [id])
+  
+  prescriptionId String?
+  prescription   ExercisePrescription? @relation(fields: [prescriptionId], references: [id])
+
+  loggedAt       DateTime    @default(now())
+  
+  // Subjective feedback
+  hasPain        Boolean     @default(false)
+  painRegion     String?     // "Knee", "LowerBack"
+  rpeScore       Int         // 1-10 (Rate of Perceived Exertion)
+  satisfaction   Int         // 1-5 (Smileys)
+  
+  completed      Boolean     @default(true)
+
+  @@index([seniorId, loggedAt])
+}
