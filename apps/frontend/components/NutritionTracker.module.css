@@ -1,0 +1,238 @@
+.container {
+    padding: var(--spacing-4);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.headerIcon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* Progress Section */
+.progressSection {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.progressHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.progressValues strong {
+    color: var(--color-primary);
+    font-size: 18px;
+}
+
+.progressBar {
+    height: 12px;
+    background: var(--grey-200);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal-500), var(--color-primary));
+    border-radius: 6px;
+    transition: width 0.3s ease;
+}
+
+.progressHint {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-top: 8px;
+}
+
+/* Meal Time */
+.mealTimeSection {
+    margin-bottom: 20px;
+}
+
+.mealTimeSection label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+}
+
+.mealTimeBtns {
+    display: flex;
+    gap: 8px;
+}
+
+.mealTimeBtn {
+    flex: 1;
+    padding: 12px;
+    background: white;
+    border: 2px solid var(--grey-200);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+
+.mealTimeBtn.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* Food Section */
+.foodSection {
+    margin-bottom: 20px;
+}
+
+.foodSection label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+}
+
+.foodGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.foodBtn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px;
+    background: white;
+    border: 2px solid var(--grey-200);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.foodBtn.selected {
+    border-color: var(--color-success);
+    background: rgba(76, 175, 80, 0.05);
+}
+
+.foodIcon {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+.foodLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+}
+
+.foodProtein {
+    font-size: 12px;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.checkMark {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    background: var(--color-success);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Tip Card */
+.tipCard {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(14, 165, 233, 0.05));
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.tipIcon {
+    font-size: 24px;
+}
+
+.tipCard strong {
+    display: block;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+.tipCard p {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Complete Card */
+.completeCard {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.completeIcon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.completeCard h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+}
+
+.completeCard p {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+}
+
+.completeCard strong {
+    color: var(--color-primary);
+}
+
+.goalText {
+    font-size: 14px !important;
+    color: var(--color-success) !important;
+}

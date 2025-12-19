@@ -241,3 +241,175 @@
 .motivationEmoji {
     font-size: 40px;
 }
+
+/* Coach Card - Human Touch */
+.coachCard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.coachProfile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.coachAvatar {
+    font-size: 40px;
+    background: linear-gradient(135deg, var(--blue-100), var(--teal-100));
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coachInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.coachLabel {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+}
+
+.coachName {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.coachMessage {
+    margin-left: 68px;
+}
+
+.messageBubble {
+    background: linear-gradient(135deg, var(--blue-50), var(--teal-50));
+    padding: 12px 16px;
+    border-radius: 16px;
+    border-top-left-radius: 4px;
+    font-size: 14px;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+}
+
+/* Prescription Reason - Why */
+.prescriptionReason {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(14, 165, 233, 0.05));
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--color-primary);
+}
+
+.reasonIcon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.reasonContent {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+}
+
+.reasonContent strong {
+    color: var(--color-primary);
+}
+
+.reasonContent p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+/* Nutrition Quick Card */
+.nutritionCard {
+    padding: var(--spacing-4);
+}
+
+.nutritionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.nutritionQuick {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.proteinIcon {
+    font-size: 28px;
+    background: var(--grey-100);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.proteinMore {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: var(--grey-100);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal Overlay */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.nutritionModal {
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.closeModalBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--grey-100);
+    font-size: 20px;
+    color: var(--grey-500);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

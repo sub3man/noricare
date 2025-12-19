@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import styles from './ExerciseSession.module.css';
+import FeedbackModal, { FeedbackData } from './FeedbackModal';
 
 interface Exercise {
     id: number;
@@ -24,8 +25,9 @@ type SessionPhase = 'ready' | 'exercise' | 'rest' | 'complete';
 export default function ExerciseSession({ exercise, onComplete, onClose }: ExerciseSessionProps) {
     const [currentSet, setCurrentSet] = useState(1);
     const [phase, setPhase] = useState<SessionPhase>('ready');
-    const [timeLeft, setTimeLeft] = useState(3); // 준비 시간
+    const [timeLeft, setTimeLeft] = useState(3);
     const [isPaused, setIsPaused] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
 
     // reps에서 시간/횟수 파싱
     const parseReps = useCallback(() => {
@@ -122,31 +124,56 @@ export default function ExerciseSession({ exercise, onComplete, onClose }: Exerc
     };
 
     if (phase === 'complete') {
-        return (
-            <div className={styles.overlay}>
-                <div className={styles.container}>
-                    <div className={styles.completeScreen}>
-                        <div className={styles.completeIcon}>🎉</div>
-                        <h2 className={styles.completeTitle}>운동 완료!</h2>
-                        <p className={styles.completeText}>
-                            {exercise.name} {exercise.sets}세트를 완료했습니다!
-                        </p>
-                        <div className={styles.completeStats}>
-                            <div className={styles.statItem}>
-                                <span className={styles.statValue}>{exercise.sets}</span>
-                                <span className={styles.statLabel}>세트</span>
+        // Show feedback modal first
+        if (!showFeedback) {
+            return (
+                <div className={styles.overlay}>
+                    <div className={styles.container}>
+                        <div className={styles.completeScreen}>
+                            <div className={styles.completeIcon}>🎉</div>
+                            <h2 className={styles.completeTitle}>운동 완료!</h2>
+                            <p className={styles.completeText}>
+                                {exercise.name} {exercise.sets}세트를 완료했습니다!
+                            </p>
+                            <div className={styles.completeStats}>
+                                <div className={styles.statItem}>
+                                    <span className={styles.statValue}>{exercise.sets}</span>
+                                    <span className={styles.statLabel}>세트</span>
+                                </div>
+                                <div className={styles.statItem}>
+                                    <span className={styles.statValue}>{exercise.reps}</span>
+                                    <span className={styles.statLabel}>매회</span>
+                                </div>
                             </div>
-                            <div className={styles.statItem}>
-                                <span className={styles.statValue}>{exercise.reps}</span>
-                                <span className={styles.statLabel}>매회</span>
-                            </div>
+                            <button
+                                className={`btn btn-primary btn-lg ${styles.completeBtn}`}
+                                onClick={() => setShowFeedback(true)}
+                            >
+                                피드백 남기기 📝
+                            </button>
+                            <button
+                                className="btn btn-ghost"
+                                onClick={onComplete}
+                            >
+                                건너뛰기
+                            </button>
                         </div>
-                        <button className={`btn btn-primary btn-lg ${styles.completeBtn}`} onClick={onComplete}>
-                            확인
-                        </button>
                     </div>
                 </div>
-            </div>
+            );
+        }
+
+        // Show feedback modal
+        return (
+            <FeedbackModal
+                exerciseName={exercise.name}
+                onSubmit={(data: FeedbackData) => {
+                    console.log('Feedback submitted:', data);
+                    // TODO: Save to backend
+                    onComplete();
+                }}
+                onClose={onComplete}
+            />
         );
     }
 

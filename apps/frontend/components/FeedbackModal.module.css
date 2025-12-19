@@ -1,0 +1,442 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 24px;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.closeBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--grey-100);
+    font-size: 20px;
+    color: var(--grey-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.headerIcon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--color-success);
+    font-weight: 500;
+}
+
+/* Step Indicator */
+.stepIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.stepDot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--grey-200);
+    color: var(--grey-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stepDot.active {
+    background: var(--color-primary);
+    color: white;
+}
+
+.stepLine {
+    width: 40px;
+    height: 2px;
+    background: var(--grey-200);
+}
+
+/* Step Content */
+.stepContent {
+    min-height: 300px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.questionSub {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+/* RPE Container */
+.rpeContainer {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.rpeValue {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.rpeLabel {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 16px;
+}
+
+.rpeSlider {
+    width: 100%;
+    height: 12px;
+    border-radius: 6px;
+    appearance: none;
+    outline: none;
+    background: linear-gradient(to right, #4CAF50, #FFEB3B, #FF9800, #F44336);
+}
+
+.rpeSlider::-webkit-slider-thumb {
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--color-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rpeScale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+}
+
+/* Difficulty Buttons */
+.difficultyBtns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.diffBtn {
+    padding: 14px;
+    border-radius: 12px;
+    border: 2px solid var(--grey-200);
+    background: white;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.diffBtn.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* Body Map */
+.bodyMapContainer {
+    margin-bottom: 16px;
+}
+
+.bodyMap {
+    position: relative;
+    width: 200px;
+    height: 280px;
+    margin: 0 auto;
+}
+
+.bodySvg {
+    width: 100%;
+    height: 100%;
+}
+
+.painPoint {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--grey-300);
+    background: rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.painPoint:hover {
+    border-color: var(--color-error);
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.painPoint.selected {
+    background: var(--color-error);
+    border-color: var(--color-error);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(244, 67, 54, 0);
+    }
+}
+
+.selectedParts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.painTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--color-error);
+}
+
+.painTag button {
+    background: none;
+    border: none;
+    color: var(--color-error);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+}
+
+.noPainBtn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px dashed var(--color-success);
+    background: rgba(76, 175, 80, 0.05);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-success);
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+}
+
+.noPainBtn.selected {
+    border-style: solid;
+    background: rgba(76, 175, 80, 0.15);
+}
+
+/* Pain Level */
+.painLevelSection {
+    margin-bottom: 24px;
+}
+
+.painLevelSection label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.painLevelBtns {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.painLevelBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--grey-200);
+    background: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.painLevelBtn.selected {
+    border-color: var(--color-error);
+    background: rgba(244, 67, 54, 0.1);
+    transform: scale(1.1);
+}
+
+/* Button Row */
+.buttonRow {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Confirmation */
+.confirmIcon {
+    font-size: 64px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.confirmTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.confirmText {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.confirmText strong {
+    color: var(--color-primary);
+}
+
+/* Feedback Summary */
+.feedbackSummary {
+    background: var(--grey-50);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--grey-200);
+}
+
+.summaryItem:last-child {
+    border-bottom: none;
+}
+
+.summaryLabel {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.summaryValue {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+/* AI Note */
+.aiNote {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(14, 165, 233, 0.1));
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.aiIcon {
+    font-size: 24px;
+}
+
+.aiNote p {
+    font-size: 13px;
+    color: var(--color-primary);
+    line-height: 1.5;
+    margin: 0;
+}

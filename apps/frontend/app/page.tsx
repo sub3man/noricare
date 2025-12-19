@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 import ExerciseSession from '@/components/ExerciseSession';
+import NutritionTracker from '@/components/NutritionTracker';
 
 interface TodayExercise {
     id: number;
@@ -36,6 +37,15 @@ export default function Home() {
         maxSppb: 12,
         weeklyProgress: 75,
         streak: 5,
+    };
+
+    const [showNutrition, setShowNutrition] = useState(false);
+
+    // 처방 근거 (AI 분석 결과 기반)
+    const prescriptionReason = {
+        mainReason: '하지 근력 강화',
+        details: '평가 결과 하지 근기능이 다소 부족하여 스쿼트, 런지 등 하지 운동을 우선 배치했습니다.',
+        considerations: ['관절 상태 양호', '균형 능력 정상'],
     };
 
     const getCategoryColor = (type: string) => {
@@ -89,6 +99,22 @@ export default function Home() {
                         day: 'numeric',
                         weekday: 'short'
                     })}
+                </div>
+            </section>
+
+            {/* Coach Profile - Human Touch */}
+            <section className={`card ${styles.coachCard} mt-5`}>
+                <div className={styles.coachProfile}>
+                    <div className={styles.coachAvatar}>👨‍⚕️</div>
+                    <div className={styles.coachInfo}>
+                        <span className={styles.coachLabel}>담당 코치</span>
+                        <span className={styles.coachName}>AI 노리 코치</span>
+                    </div>
+                </div>
+                <div className={styles.coachMessage}>
+                    <div className={styles.messageBubble}>
+                        {user.name}님, 오늘도 화이팅! 💪 어제보다 조금씩 나아지고 있어요!
+                    </div>
                 </div>
             </section>
 
@@ -165,6 +191,15 @@ export default function Home() {
                         </svg>
                     </Link>
                 </div>
+
+                {/* Prescription Reasoning - Why */}
+                <div className={styles.prescriptionReason}>
+                    <span className={styles.reasonIcon}>🎯</span>
+                    <div className={styles.reasonContent}>
+                        <strong>{prescriptionReason.mainReason}</strong> 목표로 구성했어요
+                        <p>{prescriptionReason.details}</p>
+                    </div>
+                </div>
                 <div className={styles.exerciseList}>
                     {todayExercises.map((exercise) => (
                         <div
@@ -194,6 +229,29 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Nutrition Quick Check */}
+            <section className={`card ${styles.nutritionCard} mt-5`}>
+                <div className={styles.nutritionHeader}>
+                    <div>
+                        <h3 className="subtitle">🥗 오늘의 단백질</h3>
+                        <p className="caption">근육 유지를 위해 기록해보세요</p>
+                    </div>
+                    <button
+                        className="btn btn-sm btn-primary"
+                        onClick={() => setShowNutrition(true)}
+                    >
+                        기록하기
+                    </button>
+                </div>
+                <div className={styles.nutritionQuick}>
+                    <span className={styles.proteinIcon}>🥚</span>
+                    <span className={styles.proteinIcon}>🥛</span>
+                    <span className={styles.proteinIcon}>🍗</span>
+                    <span className={styles.proteinIcon}>🐟</span>
+                    <span className={styles.proteinMore}>+6</span>
+                </div>
+            </section>
+
             {/* Motivation Banner */}
             <section className={`card ${styles.motivationBanner} mt-6`}>
                 <div className={styles.motivationContent}>
@@ -212,6 +270,16 @@ export default function Home() {
                     onComplete={handleCompleteExercise}
                     onClose={() => setActiveSession(null)}
                 />
+            )}
+
+            {/* Nutrition Modal */}
+            {showNutrition && (
+                <div className={styles.modalOverlay}>
+                    <div className={styles.nutritionModal}>
+                        <button className={styles.closeModalBtn} onClick={() => setShowNutrition(false)}>×</button>
+                        <NutritionTracker onClose={() => setShowNutrition(false)} />
+                    </div>
+                </div>
             )}
         </div>
     );
