@@ -70,10 +70,6 @@
     font-size: 32px;
 }
 
-.genderBtn:hover {
-    background: var(--color-primary-light);
-}
-
 .genderBtn.selected {
     background: var(--color-primary-light);
     border-color: var(--color-primary);
@@ -106,19 +102,15 @@
 }
 
 .conditionBtn {
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: 8px 12px;
     background: var(--grey-100);
     border: 2px solid transparent;
     border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
+    font-size: 13px;
     font-weight: var(--font-weight-medium);
     color: var(--color-text-secondary);
     transition: all var(--transition-fast);
     white-space: nowrap;
-}
-
-.conditionBtn:hover {
-    background: var(--grey-200);
 }
 
 .conditionBtn.selected {
@@ -127,7 +119,6 @@
     color: var(--color-primary);
 }
 
-/* Selected Count */
 .selectedCount {
     text-align: center;
     padding: var(--spacing-3);
@@ -149,8 +140,15 @@
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-primary);
-    margin-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
     line-height: 1.5;
+}
+
+.questionSubtext {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--spacing-3);
 }
 
 /* Option Group */
@@ -174,33 +172,23 @@
     text-align: center;
 }
 
-.optionBtn:hover {
-    background: var(--grey-200);
-}
-
 .optionBtn.selected {
     background: var(--color-primary-light);
     border-color: var(--color-primary);
     color: var(--color-primary);
 }
 
-/* Option Grid */
-.optionGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-2);
-}
-
-.gridOption {
-    min-width: auto;
-    font-size: 13px;
-    padding: var(--spacing-2) var(--spacing-2);
+.optionBtn.optionSmall {
+    flex: 1;
+    min-width: 0;
+    padding: var(--spacing-2);
+    font-size: 12px;
 }
 
 /* Exercise Type Grid */
 .exerciseTypeGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-2);
 }
 
@@ -209,11 +197,11 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    padding: var(--spacing-3) var(--spacing-2);
+    padding: var(--spacing-3);
     background: var(--grey-100);
     border: 2px solid transparent;
     border-radius: var(--radius-md);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: var(--font-weight-medium);
     color: var(--color-text-secondary);
     transition: all var(--transition-fast);
@@ -221,10 +209,6 @@
 
 .exerciseTypeBtn span:first-child {
     font-size: 24px;
-}
-
-.exerciseTypeBtn:hover {
-    background: var(--grey-200);
 }
 
 .exerciseTypeBtn.selected {
@@ -243,25 +227,12 @@
 /* Result Header */
 .resultHeader {
     text-align: center;
-    padding: var(--spacing-6) 0;
+    padding: var(--spacing-4) 0;
 }
 
 .resultIcon {
-    font-size: 64px;
-    margin-bottom: var(--spacing-4);
-    animation: bounce 1s ease infinite;
-}
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
+    font-size: 56px;
+    margin-bottom: var(--spacing-3);
 }
 
 /* Result Card */
@@ -269,19 +240,11 @@
     background: linear-gradient(135deg, #ffffff 0%, var(--grey-50) 100%);
 }
 
-.resultGroup {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-3) 0;
-}
-
-.groupBadge {
-    padding: var(--spacing-2) var(--spacing-4);
-    border-radius: var(--radius-full);
+.resultSectionTitle {
     font-size: var(--font-size-base);
-    font-weight: var(--font-weight-bold);
-    color: #ffffff;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
 }
 
 /* Score Grid */
@@ -289,7 +252,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-4);
-    padding: var(--spacing-4) 0;
+    padding: var(--spacing-3) 0;
 }
 
 .scoreItem {
@@ -297,53 +260,156 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: var(--spacing-3);
+    background: var(--grey-50);
+    border-radius: var(--radius-md);
 }
 
 .scoreLabel {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-1);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 4px;
 }
 
 .scoreValue {
-    font-size: var(--font-size-xl);
+    font-size: 24px;
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
 }
 
-/* Recommend List */
-.recommendList {
+.scoreCategory {
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    margin-top: 2px;
+}
+
+/* Findings List */
+.findingsList {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.recommendList li {
-    padding: var(--spacing-3) 0;
+.findingsList li {
+    padding: var(--spacing-3);
     padding-left: var(--spacing-6);
-    border-bottom: 1px solid var(--color-divider);
-    position: relative;
+    border-left: 3px solid var(--color-warning);
+    background: rgba(255, 193, 7, 0.05);
+    margin-bottom: var(--spacing-2);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
-.recommendList li:last-child {
+/* Risk Tags */
+.riskTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+}
+
+.riskTag {
+    padding: 6px 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-error);
+}
+
+/* Recommend Item */
+.recommendItem {
+    padding: var(--spacing-4);
+    background: var(--grey-50);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-3);
+}
+
+.recommendCategory {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-2);
+}
+
+.recommendText {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-2);
+}
+
+.recommendSource {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+}
+
+/* Exercise Prescription */
+.exerciseRx {
+    padding: var(--spacing-4);
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.exerciseRx:last-child {
     border-bottom: none;
 }
 
-.recommendList li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--color-success);
-    font-weight: bold;
+.exerciseRxHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-2);
 }
 
-/* Label Helper */
-.labelHelper {
-    color: var(--color-text-tertiary);
-    font-weight: normal;
+.exerciseRxHeader strong {
     font-size: var(--font-size-sm);
-    margin-left: var(--spacing-2);
+    color: var(--color-text-primary);
+}
+
+.exerciseFreq {
+    font-size: 12px;
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.exerciseIntensity {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.exerciseCaution {
+    font-size: 12px;
+    color: var(--color-warning);
+    margin-top: var(--spacing-2);
+    padding: var(--spacing-2);
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+/* Guideline Card */
+.guidelineCard {
+    background: var(--grey-50);
+}
+
+.guidelineList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.guidelineList li {
+    padding: var(--spacing-2) 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.guidelineList li:last-child {
+    border-bottom: none;
 }

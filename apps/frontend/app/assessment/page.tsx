@@ -3,90 +3,140 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 
+// FRAIL Scale (국제 표준 노쇠 평가)
+const frailQuestions = [
+    {
+        id: 'fatigue',
+        question: '지난 한 달간 피로감을 자주 느끼셨나요?',
+        subtext: 'FRAIL - Fatigue',
+        options: ['아니오', '예'],
+        scores: [0, 1]
+    },
+    {
+        id: 'resistance',
+        question: '혼자서 쉬지 않고 10계단을 오르기 어려우신가요?',
+        subtext: 'FRAIL - Resistance',
+        options: ['아니오', '예'],
+        scores: [0, 1]
+    },
+    {
+        id: 'ambulation',
+        question: '혼자서 300미터(약 5분 거리)를 걷기 어려우신가요?',
+        subtext: 'FRAIL - Ambulation',
+        options: ['아니오', '예'],
+        scores: [0, 1]
+    },
+    {
+        id: 'illness',
+        question: '현재 5개 이상의 질환을 앓고 계신가요?',
+        subtext: 'FRAIL - Illness',
+        options: ['아니오', '예'],
+        scores: [0, 1]
+    },
+    {
+        id: 'weight_loss',
+        question: '최근 1년간 의도치 않게 체중이 5% 이상 줄었나요?',
+        subtext: 'FRAIL - Loss of weight',
+        options: ['아니오', '예'],
+        scores: [0, 1]
+    },
+];
+
+// SARC-F (근감소증 선별 도구)
+const sarcfQuestions = [
+    {
+        id: 'strength',
+        question: '4.5kg (쌀 한 포대) 물건을 들어 옮기는 것이 얼마나 어렵나요?',
+        subtext: 'SARC-F - Strength',
+        options: ['전혀 어렵지 않음', '약간 어려움', '매우 어렵거나 불가능'],
+        scores: [0, 1, 2]
+    },
+    {
+        id: 'walking',
+        question: '방 한쪽 끝에서 다른 끝까지 걷는 것이 얼마나 어렵나요?',
+        subtext: 'SARC-F - Assistance walking',
+        options: ['전혀 어렵지 않음', '약간 어려움', '매우 어렵거나 보조기구 필요'],
+        scores: [0, 1, 2]
+    },
+    {
+        id: 'chair',
+        question: '의자나 침대에서 일어나는 것이 얼마나 어렵나요?',
+        subtext: 'SARC-F - Rise from chair',
+        options: ['전혀 어렵지 않음', '약간 어려움', '매우 어렵거나 도움 필요'],
+        scores: [0, 1, 2]
+    },
+    {
+        id: 'stairs',
+        question: '10계단을 오르는 것이 얼마나 어렵나요?',
+        subtext: 'SARC-F - Climb stairs',
+        options: ['전혀 어렵지 않음', '약간 어려움', '매우 어렵거나 불가능'],
+        scores: [0, 1, 2]
+    },
+    {
+        id: 'falls',
+        question: '지난 1년간 몇 번 넘어지셨나요?',
+        subtext: 'SARC-F - Falls',
+        options: ['없음', '1-3회', '4회 이상'],
+        scores: [0, 1, 2]
+    },
+];
+
 // 확장된 질환 목록
 const conditionCategories = [
     {
-        title: '만성질환',
-        icon: '🏥',
+        title: '심혈관/대사질환',
+        icon: '❤️',
         conditions: [
             { id: 'hypertension', label: '고혈압' },
             { id: 'diabetes', label: '당뇨병' },
             { id: 'hyperlipidemia', label: '고지혈증' },
-            { id: 'heart_disease', label: '심장질환' },
-            { id: 'stroke_history', label: '뇌졸중 이력' },
-            { id: 'kidney_disease', label: '신장질환' },
-            { id: 'liver_disease', label: '간질환' },
-            { id: 'copd', label: '폐질환(COPD)' },
-            { id: 'cancer_history', label: '암 병력' },
-            { id: 'thyroid', label: '갑상선 질환' },
+            { id: 'heart_disease', label: '심장질환 (협심증, 심부전)' },
+            { id: 'stroke_history', label: '뇌졸중 병력' },
+            { id: 'arrhythmia', label: '부정맥' },
         ]
     },
     {
         title: '근골격계',
         icon: '🦴',
         conditions: [
-            { id: 'arthritis', label: '관절염' },
+            { id: 'arthritis', label: '관절염 (류마티스/퇴행성)' },
             { id: 'osteoporosis', label: '골다공증' },
             { id: 'disc', label: '허리 디스크' },
             { id: 'spinal_stenosis', label: '척추관협착증' },
             { id: 'knee_surgery', label: '무릎 수술 이력' },
             { id: 'hip_surgery', label: '고관절 수술 이력' },
-            { id: 'shoulder', label: '어깨 질환(오십견 등)' },
-            { id: 'back_pain', label: '만성 허리통증' },
+            { id: 'shoulder', label: '어깨 질환' },
+            { id: 'sarcopenia', label: '근감소증 진단' },
         ]
     },
     {
-        title: '신경계/기타',
+        title: '호흡기/내과',
+        icon: '🫁',
+        conditions: [
+            { id: 'copd', label: '만성폐쇄성폐질환(COPD)' },
+            { id: 'asthma', label: '천식' },
+            { id: 'kidney_disease', label: '만성신장질환' },
+            { id: 'liver_disease', label: '간질환' },
+            { id: 'thyroid', label: '갑상선 질환' },
+            { id: 'cancer_history', label: '암 병력' },
+        ]
+    },
+    {
+        title: '신경/정신',
         icon: '🧠',
         conditions: [
             { id: 'parkinsons', label: '파킨슨병' },
-            { id: 'dementia', label: '치매/인지장애' },
+            { id: 'dementia', label: '치매/경도인지장애' },
             { id: 'neuropathy', label: '말초신경병' },
-            { id: 'dizziness', label: '만성 어지럼증' },
-            { id: 'depression', label: '우울증/불안장애' },
+            { id: 'dizziness', label: '어지럼증/전정기능장애' },
+            { id: 'depression', label: '우울증' },
+            { id: 'anxiety', label: '불안장애' },
             { id: 'insomnia', label: '수면장애' },
         ]
     }
 ];
 
-// 일상생활 능력 질문
-const dailyLivingQuestions = [
-    { id: 'stairs', question: '계단을 혼자 오르내릴 수 있나요?', options: ['어렵다', '도움 필요', '가능하다'] },
-    { id: 'shopping', question: '장보기를 혼자 할 수 있나요?', options: ['어렵다', '도움 필요', '가능하다'] },
-    { id: 'heavy_lifting', question: '무거운 물건(5kg)을 들 수 있나요?', options: ['어렵다', '조금 가능', '가능하다'] },
-    { id: 'walking_aid', question: '보행 보조기구를 사용하시나요?', options: ['사용함', '가끔 사용', '사용안함'] },
-    { id: 'fall_history', question: '최근 1년간 넘어진 적 있나요?', options: ['3회 이상', '1-2회', '없음'] },
-];
-
-// 간편 자가 테스트
-const selfTestQuestions = [
-    {
-        id: 'sit_stand',
-        question: '의자에서 30초 동안 앉았다 일어서기 몇 회 가능한가요?',
-        options: ['5회 미만', '5-9회', '10-14회', '15회 이상'],
-        scores: [1, 2, 3, 4]
-    },
-    {
-        id: 'one_leg_stand',
-        question: '한 발로 10초 이상 서있을 수 있나요?',
-        options: ['불가능', '5초 미만', '5-10초', '10초 이상'],
-        scores: [1, 2, 3, 4]
-    },
-    {
-        id: 'floor_touch',
-        question: '서서 허리를 숙여 손이 바닥에 닿나요?',
-        options: ['무릎까지만', '정강이', '발목', '바닥'],
-        scores: [1, 2, 3, 4]
-    },
-    {
-        id: 'fatigue',
-        question: '평소 피로감은 어느 정도인가요?',
-        options: ['매우 피곤함', '자주 피곤함', '가끔 피곤함', '거의 없음'],
-        scores: [1, 2, 3, 4]
-    },
-];
-
-// 운동 습관
+// 운동 습관 옵션
 const exerciseOptions = {
     frequency: [
         { value: 'none', label: '거의 안 함' },
@@ -95,52 +145,44 @@ const exerciseOptions = {
         { value: 'often', label: '주 4회 이상' },
     ],
     types: [
-        { id: 'walking', label: '걷기/산책', icon: '🚶' },
+        { id: 'walking', label: '걷기', icon: '🚶' },
         { id: 'stretching', label: '스트레칭', icon: '🧘' },
         { id: 'strength', label: '근력운동', icon: '💪' },
         { id: 'swimming', label: '수영', icon: '🏊' },
         { id: 'cycling', label: '자전거', icon: '🚴' },
-        { id: 'dance', label: '댄스/에어로빅', icon: '💃' },
-        { id: 'golf', label: '골프', icon: '⛳' },
-        { id: 'hiking', label: '등산', icon: '🥾' },
-    ],
-    locations: [
-        { value: 'home', label: '집' },
-        { value: 'gym', label: '헬스장' },
-        { value: 'outdoor', label: '야외' },
-        { value: 'center', label: '복지관/센터' },
-    ],
-    duration: [
-        { value: '15', label: '15분 이하' },
-        { value: '30', label: '30분' },
-        { value: '60', label: '1시간' },
-        { value: '90', label: '1시간 이상' },
+        { id: 'dance', label: '댄스', icon: '💃' },
     ],
 };
 
 interface FormData {
-    // Step 1: 기본정보
     age: number;
     gender: string;
     height: number;
     weight: number;
-    // Step 2: 질환
     conditions: string[];
-    // Step 3: 일상생활
-    dailyLiving: { [key: string]: number };
-    // Step 4: 자가테스트
-    selfTest: { [key: string]: number };
-    // Step 5: 운동습관
+    frail: { [key: string]: number };
+    sarcf: { [key: string]: number };
     exerciseFrequency: string;
     exerciseTypes: string[];
-    exerciseLocation: string;
-    exerciseDuration: string;
+}
+
+interface DiagnosisResult {
+    frailScore: number;
+    frailCategory: string;
+    sarcfScore: number;
+    sarcfCategory: string;
+    bmi: number;
+    bmiCategory: string;
+    riskFactors: string[];
+    findings: string[];
+    recommendations: { category: string; text: string; source: string }[];
+    exercisePrescription: { type: string; frequency: string; intensity: string; caution?: string }[];
 }
 
 export default function AssessmentPage() {
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const [result, setResult] = useState<any>(null);
+    const [result, setResult] = useState<DiagnosisResult | null>(null);
 
     const [formData, setFormData] = useState<FormData>({
         age: 65,
@@ -148,111 +190,214 @@ export default function AssessmentPage() {
         height: 165,
         weight: 60,
         conditions: [],
-        dailyLiving: {},
-        selfTest: {},
+        frail: {},
+        sarcf: {},
         exerciseFrequency: '',
         exerciseTypes: [],
-        exerciseLocation: '',
-        exerciseDuration: '',
     });
 
-    const totalSteps = 6; // 5 steps + result
+    const totalSteps = 6;
 
-    const handleConditionToggle = (conditionId: string) => {
+    const handleConditionToggle = (id: string) => {
         setFormData(prev => ({
             ...prev,
-            conditions: prev.conditions.includes(conditionId)
-                ? prev.conditions.filter(c => c !== conditionId)
-                : [...prev.conditions, conditionId]
+            conditions: prev.conditions.includes(id)
+                ? prev.conditions.filter(c => c !== id)
+                : [...prev.conditions, id]
         }));
     };
 
-    const handleDailyLivingChange = (questionId: string, value: number) => {
+    const handleFrailChange = (id: string, score: number) => {
         setFormData(prev => ({
             ...prev,
-            dailyLiving: { ...prev.dailyLiving, [questionId]: value }
+            frail: { ...prev.frail, [id]: score }
         }));
     };
 
-    const handleSelfTestChange = (questionId: string, value: number) => {
+    const handleSarcfChange = (id: string, score: number) => {
         setFormData(prev => ({
             ...prev,
-            selfTest: { ...prev.selfTest, [questionId]: value }
+            sarcf: { ...prev.sarcf, [id]: score }
         }));
     };
 
-    const handleExerciseTypeToggle = (typeId: string) => {
-        setFormData(prev => ({
-            ...prev,
-            exerciseTypes: prev.exerciseTypes.includes(typeId)
-                ? prev.exerciseTypes.filter(t => t !== typeId)
-                : [...prev.exerciseTypes, typeId]
-        }));
-    };
+    const calculateResults = (): DiagnosisResult => {
+        // FRAIL 점수 계산 (0-5점)
+        const frailScore = Object.values(formData.frail).reduce((a, b) => a + b, 0);
+        let frailCategory = '건강(Robust)';
+        if (frailScore >= 3) frailCategory = '노쇠(Frail)';
+        else if (frailScore >= 1) frailCategory = '전노쇠(Pre-frail)';
 
-    const calculateResults = () => {
-        // 일상생활 점수 (0-10)
-        const dailyScore = Object.values(formData.dailyLiving).reduce((a, b) => a + b, 0) /
-            (dailyLivingQuestions.length * 2) * 10;
+        // SARC-F 점수 계산 (0-10점)
+        const sarcfScore = Object.values(formData.sarcf).reduce((a, b) => a + b, 0);
+        let sarcfCategory = '정상';
+        if (sarcfScore >= 4) sarcfCategory = '근감소증 의심';
 
-        // 신체기능 점수 (0-10)
-        const selfTestScore = Object.values(formData.selfTest).reduce((a, b) => a + b, 0) /
-            (selfTestQuestions.length * 4) * 10;
+        // BMI 계산
+        const bmi = formData.weight / Math.pow(formData.height / 100, 2);
+        let bmiCategory = '정상';
+        if (bmi < 18.5) bmiCategory = '저체중';
+        else if (bmi >= 23 && bmi < 25) bmiCategory = '과체중';
+        else if (bmi >= 25) bmiCategory = '비만';
 
-        // 위험 요인 수
-        const riskFactors = formData.conditions.length;
+        // 위험 요인 분석
+        const riskFactors: string[] = [];
+        if (frailScore >= 3) riskFactors.push('노쇠 상태');
+        if (sarcfScore >= 4) riskFactors.push('근감소증 의심');
+        if (bmi < 18.5 || bmi >= 25) riskFactors.push('BMI 이상');
+        if (formData.conditions.includes('diabetes')) riskFactors.push('당뇨병');
+        if (formData.conditions.includes('heart_disease')) riskFactors.push('심장질환');
+        if (formData.conditions.includes('osteoporosis')) riskFactors.push('골다공증');
+        if (formData.frail['falls'] === 2) riskFactors.push('반복 낙상 이력');
 
-        // 종합 점수
-        const totalScore = (dailyScore + selfTestScore) / 2;
+        // 주요 발견사항
+        const findings: string[] = [];
+        if (formData.frail['fatigue'] === 1) findings.push('피로감 호소 - 영양 상태, 수면, 빈혈 등 점검 권장');
+        if (formData.frail['resistance'] === 1 || formData.sarcf['stairs'] >= 1)
+            findings.push('하지 근력 저하 추정 - 근력 강화 운동 필수');
+        if (formData.sarcf['falls'] >= 1)
+            findings.push('낙상 경험 있음 - 균형 훈련 및 환경 점검 권장');
+        if (formData.frail['weight_loss'] === 1)
+            findings.push('체중 감소 - 영양 보충 및 원인 파악 필요');
+        if (formData.conditions.includes('osteoporosis'))
+            findings.push('골다공증 - 낙상 시 골절 위험, 균형 운동 우선');
+        if (sarcfScore >= 4 && formData.age >= 65)
+            findings.push('근감소증 의심 - 전문가 상담 및 정밀 검사 권장');
 
-        // 위험도 분류
-        let riskLevel = '낮음';
-        let group = 'NORMAL';
-        if (totalScore < 4 || riskFactors > 5) {
-            riskLevel = '높음';
-            group = 'FRAIL';
-        } else if (totalScore < 6 || riskFactors > 3) {
-            riskLevel = '보통';
-            group = 'PRE_FRAIL';
+        // 맞춤 권장사항 (가이드라인 기반)
+        const recommendations: { category: string; text: string; source: string }[] = [];
+
+        // FRAIL 기반 권장
+        if (frailScore >= 3) {
+            recommendations.push({
+                category: '전문 상담',
+                text: '노쇠 상태로 판단됩니다. 노인의학 전문의 상담을 권장합니다.',
+                source: '대한노인병학회 노쇠 관리 권고안'
+            });
+            recommendations.push({
+                category: '영양',
+                text: '단백질 섭취를 체중 kg당 1.2g 이상으로 늘리세요.',
+                source: 'ESPEN 노인 영양 가이드라인'
+            });
+        } else if (frailScore >= 1) {
+            recommendations.push({
+                category: '예방',
+                text: '전노쇠 단계입니다. 규칙적인 운동과 영양 관리가 중요합니다.',
+                source: 'WHO 건강노화 권고안'
+            });
         }
+
+        // SARC-F 기반 권장
+        if (sarcfScore >= 4) {
+            recommendations.push({
+                category: '근력 강화',
+                text: '저항성 운동을 주 2-3회, 주요 근육군별로 8-12회씩 실시하세요.',
+                source: 'ACSM 운동 처방 지침'
+            });
+            recommendations.push({
+                category: '단백질',
+                text: '매 식사마다 단백질 20-30g을 섭취하세요.',
+                source: 'ESPEN 근감소증 관리 권고안'
+            });
+        }
+
+        // 질환 조합 기반 권장
+        if (formData.conditions.includes('hypertension') || formData.conditions.includes('heart_disease')) {
+            recommendations.push({
+                category: '심혈관',
+                text: '고강도 운동은 피하고, 중강도 유산소 운동 주 150분을 권장합니다.',
+                source: 'AHA/ACC 운동 권고안'
+            });
+        }
+
+        if (formData.conditions.includes('arthritis') || formData.conditions.includes('knee_surgery')) {
+            recommendations.push({
+                category: '관절 보호',
+                text: '관절에 충격이 적은 수중 운동, 자전거, 의자 운동을 권장합니다.',
+                source: '대한류마티스학회 운동 권고안'
+            });
+        }
+
+        if (formData.conditions.includes('osteoporosis')) {
+            recommendations.push({
+                category: '낙상 예방',
+                text: '균형 운동과 하지 근력 운동을 우선하고, 충격이 큰 운동은 제한하세요.',
+                source: 'NOF 골다공증 운동 가이드라인'
+            });
+        }
+
+        if (formData.conditions.includes('diabetes')) {
+            recommendations.push({
+                category: '혈당 관리',
+                text: '식후 30분 이내 가벼운 걷기(10-15분)가 혈당 조절에 효과적입니다.',
+                source: 'ADA 당뇨병 관리 지침'
+            });
+        }
+
+        if (formData.conditions.includes('depression') || formData.conditions.includes('anxiety')) {
+            recommendations.push({
+                category: '정신건강',
+                text: '규칙적인 유산소 운동이 우울감과 불안 개선에 도움됩니다.',
+                source: 'NICE 우울증 가이드라인'
+            });
+        }
+
+        // 운동 처방
+        const exercisePrescription: DiagnosisResult['exercisePrescription'] = [];
+
+        // 유산소 운동
+        let aerobicIntensity = '중강도';
+        if (frailScore >= 3 || formData.conditions.includes('heart_disease')) {
+            aerobicIntensity = '저강도';
+        }
+        exercisePrescription.push({
+            type: '유산소 운동 (걷기, 수영)',
+            frequency: '주 3-5회, 회당 20-30분',
+            intensity: aerobicIntensity,
+            caution: formData.conditions.includes('heart_disease') ? '심박수 모니터링 권장' : undefined
+        });
+
+        // 근력 운동
+        let strengthIntensity = '중강도 (10-15회 반복 가능한 무게)';
+        if (frailScore >= 3) {
+            strengthIntensity = '저강도 (체중 또는 밴드 이용)';
+        }
+        exercisePrescription.push({
+            type: '근력 운동',
+            frequency: '주 2-3회',
+            intensity: strengthIntensity,
+            caution: formData.conditions.includes('arthritis') ? '관절 가동 범위 내에서만 실시' : undefined
+        });
+
+        // 균형 운동
+        if (formData.sarcf['falls'] >= 1 || formData.conditions.includes('osteoporosis') || formData.age >= 70) {
+            exercisePrescription.push({
+                type: '균형 훈련',
+                frequency: '주 2-3회',
+                intensity: '점진적으로 난이도 증가',
+                caution: '안전한 환경에서 실시 (벽, 의자 잡을 수 있도록)'
+            });
+        }
+
+        // 유연성 운동
+        exercisePrescription.push({
+            type: '스트레칭',
+            frequency: '매일 10-15분',
+            intensity: '통증 없는 범위까지',
+        });
 
         return {
-            group,
-            analysis: {
-                risk_level: riskLevel,
-                daily_living_score: dailyScore.toFixed(1),
-                physical_score: selfTestScore.toFixed(1),
-                total_score: totalScore.toFixed(1),
-                risk_factors: riskFactors,
-                bmi: (formData.weight / Math.pow(formData.height / 100, 2)).toFixed(1),
-            },
-            recommendations: getRecommendations(group, formData.conditions),
+            frailScore,
+            frailCategory,
+            sarcfScore,
+            sarcfCategory,
+            bmi: Math.round(bmi * 10) / 10,
+            bmiCategory,
+            riskFactors,
+            findings,
+            recommendations,
+            exercisePrescription,
         };
-    };
-
-    const getRecommendations = (group: string, conditions: string[]) => {
-        const recs = [];
-
-        if (group === 'FRAIL') {
-            recs.push('저강도 운동부터 천천히 시작하세요');
-            recs.push('전문가 상담을 권장합니다');
-        } else if (group === 'PRE_FRAIL') {
-            recs.push('중강도 근력 운동을 주 2-3회 권장해요');
-        } else {
-            recs.push('현재 상태를 유지하며 꾸준히 운동하세요');
-        }
-
-        if (conditions.includes('arthritis') || conditions.includes('knee_surgery')) {
-            recs.push('관절에 무리가 가지 않는 운동을 선택하세요');
-        }
-        if (conditions.includes('osteoporosis')) {
-            recs.push('낙상 예방을 위한 균형 운동이 중요해요');
-        }
-        if (conditions.includes('hypertension') || conditions.includes('heart_disease')) {
-            recs.push('고강도 운동은 피하고 유산소 운동을 권장해요');
-        }
-
-        return recs.slice(0, 4);
     };
 
     const handleSubmit = async () => {
@@ -266,35 +411,26 @@ export default function AssessmentPage() {
     const canProceed = (currentStep: number): boolean => {
         switch (currentStep) {
             case 1: return !!formData.gender && formData.age > 0;
-            case 2: return true; // 질환 선택은 선택사항
-            case 3: return Object.keys(formData.dailyLiving).length >= 3;
-            case 4: return Object.keys(formData.selfTest).length >= 3;
-            case 5: return !!formData.exerciseFrequency;
+            case 2: return true;
+            case 3: return Object.keys(formData.frail).length >= 3;
+            case 4: return Object.keys(formData.sarcf).length >= 3;
+            case 5: return true;
             default: return true;
         }
     };
 
-    const getGroupLabel = (group: string) => {
-        switch (group) {
-            case 'NORMAL': return '건강';
-            case 'PRE_FRAIL': return '주의';
-            case 'FRAIL': return '관리 필요';
-            default: return group;
-        }
-    };
-
-    const getRiskColor = (level: string) => {
-        switch (level) {
-            case '낮음': return 'var(--color-success)';
-            case '보통': return 'var(--color-warning)';
-            case '높음': return 'var(--color-error)';
+    const getFrailColor = (category: string) => {
+        switch (category) {
+            case '건강(Robust)': return 'var(--color-success)';
+            case '전노쇠(Pre-frail)': return 'var(--color-warning)';
+            case '노쇠(Frail)': return 'var(--color-error)';
             default: return 'var(--grey-500)';
         }
     };
 
     return (
         <div className="container animate-fade-in">
-            {/* Progress Indicator */}
+            {/* Progress */}
             <div className={styles.progressIndicator}>
                 <div className={styles.progressBar}>
                     <div
@@ -303,7 +439,7 @@ export default function AssessmentPage() {
                     />
                 </div>
                 <span className={styles.progressText}>
-                    {step < 6 ? `${step} / 5 단계` : '완료'}
+                    {step < 6 ? `${step}/5` : '완료'}
                 </span>
             </div>
 
@@ -313,7 +449,7 @@ export default function AssessmentPage() {
                     <div className={styles.stepHeader}>
                         <span className={styles.stepIcon}>👤</span>
                         <h2 className="title">기본 정보</h2>
-                        <p className="caption mt-2">맞춤 운동 처방을 위한 기본 정보예요</p>
+                        <p className="caption mt-2">맞춤 건강 평가를 위한 기본 정보예요</p>
                     </div>
 
                     <div className="card mt-5">
@@ -324,8 +460,7 @@ export default function AssessmentPage() {
                                 value={formData.age}
                                 onChange={(e) => setFormData(prev => ({ ...prev, age: Number(e.target.value) }))}
                                 className="input"
-                                min={18}
-                                max={120}
+                                min={18} max={120}
                             />
                         </div>
 
@@ -337,16 +472,14 @@ export default function AssessmentPage() {
                                     className={`${styles.genderBtn} ${formData.gender === 'M' ? styles.selected : ''}`}
                                     onClick={() => setFormData(prev => ({ ...prev, gender: 'M' }))}
                                 >
-                                    <span>👨</span>
-                                    남성
+                                    <span>👨</span> 남성
                                 </button>
                                 <button
                                     type="button"
                                     className={`${styles.genderBtn} ${formData.gender === 'F' ? styles.selected : ''}`}
                                     onClick={() => setFormData(prev => ({ ...prev, gender: 'F' }))}
                                 >
-                                    <span>👩</span>
-                                    여성
+                                    <span>👩</span> 여성
                                 </button>
                             </div>
                         </div>
@@ -358,9 +491,7 @@ export default function AssessmentPage() {
                                     type="number"
                                     value={formData.height}
                                     onChange={(e) => setFormData(prev => ({ ...prev, height: Number(e.target.value) }))}
-                                    className="input"
-                                    min={100}
-                                    max={220}
+                                    className="input" min={100} max={220}
                                 />
                             </div>
                             <div className="input-group">
@@ -369,9 +500,7 @@ export default function AssessmentPage() {
                                     type="number"
                                     value={formData.weight}
                                     onChange={(e) => setFormData(prev => ({ ...prev, weight: Number(e.target.value) }))}
-                                    className="input"
-                                    min={30}
-                                    max={200}
+                                    className="input" min={30} max={200}
                                 />
                             </div>
                         </div>
@@ -422,40 +551,34 @@ export default function AssessmentPage() {
                     </div>
 
                     <div className={styles.buttonRow}>
-                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(1)}>
-                            이전
-                        </button>
-                        <button
-                            className="btn btn-primary btn-lg flex-1"
-                            onClick={() => setStep(3)}
-                        >
-                            다음
-                        </button>
+                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(1)}>이전</button>
+                        <button className="btn btn-primary btn-lg flex-1" onClick={() => setStep(3)}>다음</button>
                     </div>
                 </div>
             )}
 
-            {/* Step 3: 일상생활 능력 */}
+            {/* Step 3: FRAIL Scale */}
             {step === 3 && (
                 <div className={styles.stepContent}>
                     <div className={styles.stepHeader}>
-                        <span className={styles.stepIcon}>🏠</span>
-                        <h2 className="title">일상생활 능력</h2>
-                        <p className="caption mt-2">평소 일상생활 수행 능력을 체크해주세요</p>
+                        <span className={styles.stepIcon}>📋</span>
+                        <h2 className="title">노쇠 평가 (FRAIL)</h2>
+                        <p className="caption mt-2">국제 표준 노쇠 선별 도구입니다</p>
                     </div>
 
                     <div className="card mt-5">
-                        {dailyLivingQuestions.map((q, idx) => (
+                        {frailQuestions.map((q, idx) => (
                             <div key={q.id} className={styles.questionItem}>
                                 <p className={styles.questionText}>
                                     {idx + 1}. {q.question}
                                 </p>
+                                <span className={styles.questionSubtext}>{q.subtext}</span>
                                 <div className={styles.optionGroup}>
                                     {q.options.map((option, optIdx) => (
                                         <button
                                             key={optIdx}
-                                            className={`${styles.optionBtn} ${formData.dailyLiving[q.id] === optIdx ? styles.selected : ''}`}
-                                            onClick={() => handleDailyLivingChange(q.id, optIdx)}
+                                            className={`${styles.optionBtn} ${formData.frail[q.id] === q.scores[optIdx] ? styles.selected : ''}`}
+                                            onClick={() => handleFrailChange(q.id, q.scores[optIdx])}
                                         >
                                             {option}
                                         </button>
@@ -466,9 +589,7 @@ export default function AssessmentPage() {
                     </div>
 
                     <div className={styles.buttonRow}>
-                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(2)}>
-                            이전
-                        </button>
+                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(2)}>이전</button>
                         <button
                             className="btn btn-primary btn-lg flex-1"
                             onClick={() => setStep(4)}
@@ -480,27 +601,28 @@ export default function AssessmentPage() {
                 </div>
             )}
 
-            {/* Step 4: 자가 테스트 */}
+            {/* Step 4: SARC-F */}
             {step === 4 && (
                 <div className={styles.stepContent}>
                     <div className={styles.stepHeader}>
-                        <span className={styles.stepIcon}>📏</span>
-                        <h2 className="title">간편 체력 테스트</h2>
-                        <p className="caption mt-2">간단한 테스트로 체력을 측정해요</p>
+                        <span className={styles.stepIcon}>💪</span>
+                        <h2 className="title">근감소증 선별 (SARC-F)</h2>
+                        <p className="caption mt-2">근력 및 신체 기능을 평가합니다</p>
                     </div>
 
                     <div className="card mt-5">
-                        {selfTestQuestions.map((q, idx) => (
+                        {sarcfQuestions.map((q, idx) => (
                             <div key={q.id} className={styles.questionItem}>
                                 <p className={styles.questionText}>
                                     {idx + 1}. {q.question}
                                 </p>
-                                <div className={styles.optionGrid}>
+                                <span className={styles.questionSubtext}>{q.subtext}</span>
+                                <div className={styles.optionGroup}>
                                     {q.options.map((option, optIdx) => (
                                         <button
                                             key={optIdx}
-                                            className={`${styles.optionBtn} ${styles.gridOption} ${formData.selfTest[q.id] === q.scores[optIdx] ? styles.selected : ''}`}
-                                            onClick={() => handleSelfTestChange(q.id, q.scores[optIdx])}
+                                            className={`${styles.optionBtn} ${styles.optionSmall} ${formData.sarcf[q.id] === q.scores[optIdx] ? styles.selected : ''}`}
+                                            onClick={() => handleSarcfChange(q.id, q.scores[optIdx])}
                                         >
                                             {option}
                                         </button>
@@ -511,9 +633,7 @@ export default function AssessmentPage() {
                     </div>
 
                     <div className={styles.buttonRow}>
-                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(3)}>
-                            이전
-                        </button>
+                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(3)}>이전</button>
                         <button
                             className="btn btn-primary btn-lg flex-1"
                             onClick={() => setStep(5)}
@@ -531,7 +651,7 @@ export default function AssessmentPage() {
                     <div className={styles.stepHeader}>
                         <span className={styles.stepIcon}>🏃</span>
                         <h2 className="title">운동 습관</h2>
-                        <p className="caption mt-2">현재 운동 습관과 선호도를 알려주세요</p>
+                        <p className="caption mt-2">현재 운동 습관을 알려주세요</p>
                     </div>
 
                     <div className="card mt-5">
@@ -551,13 +671,18 @@ export default function AssessmentPage() {
                         </div>
 
                         <div className={styles.questionItem}>
-                            <p className={styles.questionText}>선호하는 운동 유형 (복수 선택)</p>
+                            <p className={styles.questionText}>선호하는 운동 (복수 선택)</p>
                             <div className={styles.exerciseTypeGrid}>
                                 {exerciseOptions.types.map((type) => (
                                     <button
                                         key={type.id}
                                         className={`${styles.exerciseTypeBtn} ${formData.exerciseTypes.includes(type.id) ? styles.selected : ''}`}
-                                        onClick={() => handleExerciseTypeToggle(type.id)}
+                                        onClick={() => setFormData(prev => ({
+                                            ...prev,
+                                            exerciseTypes: prev.exerciseTypes.includes(type.id)
+                                                ? prev.exerciseTypes.filter(t => t !== type.id)
+                                                : [...prev.exerciseTypes, type.id]
+                                        }))}
                                     >
                                         <span>{type.icon}</span>
                                         <span>{type.label}</span>
@@ -565,46 +690,14 @@ export default function AssessmentPage() {
                                 ))}
                             </div>
                         </div>
-
-                        <div className={styles.questionItem}>
-                            <p className={styles.questionText}>주로 운동하는 장소는?</p>
-                            <div className={styles.optionGroup}>
-                                {exerciseOptions.locations.map((loc) => (
-                                    <button
-                                        key={loc.value}
-                                        className={`${styles.optionBtn} ${formData.exerciseLocation === loc.value ? styles.selected : ''}`}
-                                        onClick={() => setFormData(prev => ({ ...prev, exerciseLocation: loc.value }))}
-                                    >
-                                        {loc.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className={styles.questionItem}>
-                            <p className={styles.questionText}>하루 운동 가능 시간은?</p>
-                            <div className={styles.optionGroup}>
-                                {exerciseOptions.duration.map((dur) => (
-                                    <button
-                                        key={dur.value}
-                                        className={`${styles.optionBtn} ${formData.exerciseDuration === dur.value ? styles.selected : ''}`}
-                                        onClick={() => setFormData(prev => ({ ...prev, exerciseDuration: dur.value }))}
-                                    >
-                                        {dur.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
                     </div>
 
                     <div className={styles.buttonRow}>
-                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(4)}>
-                            이전
-                        </button>
+                        <button className="btn btn-secondary btn-lg" onClick={() => setStep(4)}>이전</button>
                         <button
                             className="btn btn-primary btn-lg flex-1"
                             onClick={handleSubmit}
-                            disabled={isLoading || !canProceed(5)}
+                            disabled={isLoading}
                         >
                             {isLoading ? '분석 중...' : '결과 보기'}
                         </button>
@@ -612,56 +705,117 @@ export default function AssessmentPage() {
                 </div>
             )}
 
-            {/* Step 6: 결과 */}
+            {/* Step 6: 상세 결과 */}
             {step === 6 && result && (
                 <div className={styles.stepContent}>
                     <div className={styles.resultHeader}>
-                        <div className={styles.resultIcon}>✅</div>
-                        <h2 className="title">분석 완료!</h2>
-                        <p className="caption mt-2">{formData.age}세 {formData.gender === 'M' ? '남성' : '여성'} 맞춤 분석 결과</p>
+                        <div className={styles.resultIcon}>📊</div>
+                        <h2 className="title">건강 분석 결과</h2>
+                        <p className="caption mt-2">{formData.age}세 {formData.gender === 'M' ? '남성' : '여성'}</p>
                     </div>
 
+                    {/* 핵심 지표 */}
                     <div className={`card ${styles.resultCard} mt-5`}>
-                        <div className={styles.resultGroup}>
-                            <span className="caption">건강 상태</span>
-                            <span
-                                className={styles.groupBadge}
-                                style={{ backgroundColor: getRiskColor(result.analysis.risk_level) }}
-                            >
-                                {getGroupLabel(result.group)}
-                            </span>
-                        </div>
-
-                        <div className="divider" />
-
+                        <h3 className={styles.resultSectionTitle}>📊 핵심 건강 지표</h3>
                         <div className={styles.scoreGrid}>
                             <div className={styles.scoreItem}>
-                                <span className={styles.scoreLabel}>일상생활</span>
-                                <span className={styles.scoreValue}>{result.analysis.daily_living_score}점</span>
+                                <span className={styles.scoreLabel}>FRAIL 점수</span>
+                                <span className={styles.scoreValue} style={{ color: getFrailColor(result.frailCategory) }}>
+                                    {result.frailScore}/5
+                                </span>
+                                <span className={styles.scoreCategory} style={{ color: getFrailColor(result.frailCategory) }}>
+                                    {result.frailCategory}
+                                </span>
                             </div>
                             <div className={styles.scoreItem}>
-                                <span className={styles.scoreLabel}>신체기능</span>
-                                <span className={styles.scoreValue}>{result.analysis.physical_score}점</span>
+                                <span className={styles.scoreLabel}>SARC-F 점수</span>
+                                <span className={styles.scoreValue} style={{ color: result.sarcfScore >= 4 ? 'var(--color-error)' : 'var(--color-success)' }}>
+                                    {result.sarcfScore}/10
+                                </span>
+                                <span className={styles.scoreCategory}>
+                                    {result.sarcfCategory}
+                                </span>
                             </div>
                             <div className={styles.scoreItem}>
                                 <span className={styles.scoreLabel}>BMI</span>
-                                <span className={styles.scoreValue}>{result.analysis.bmi}</span>
+                                <span className={styles.scoreValue}>
+                                    {result.bmi}
+                                </span>
+                                <span className={styles.scoreCategory}>
+                                    {result.bmiCategory}
+                                </span>
                             </div>
                             <div className={styles.scoreItem}>
-                                <span className={styles.scoreLabel}>위험요인</span>
-                                <span className={styles.scoreValue} style={{ color: result.analysis.risk_factors > 3 ? 'var(--color-error)' : 'inherit' }}>
-                                    {result.analysis.risk_factors}개
+                                <span className={styles.scoreLabel}>위험 요인</span>
+                                <span className={styles.scoreValue} style={{ color: result.riskFactors.length > 2 ? 'var(--color-error)' : 'inherit' }}>
+                                    {result.riskFactors.length}개
                                 </span>
                             </div>
                         </div>
                     </div>
 
+                    {/* 주요 발견사항 */}
+                    {result.findings.length > 0 && (
+                        <div className="card mt-4">
+                            <h3 className={styles.resultSectionTitle}>🔍 주요 발견사항</h3>
+                            <ul className={styles.findingsList}>
+                                {result.findings.map((finding, idx) => (
+                                    <li key={idx}>{finding}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* 위험 요인 */}
+                    {result.riskFactors.length > 0 && (
+                        <div className="card mt-4">
+                            <h3 className={styles.resultSectionTitle}>⚠️ 주의가 필요한 부분</h3>
+                            <div className={styles.riskTags}>
+                                {result.riskFactors.map((risk, idx) => (
+                                    <span key={idx} className={styles.riskTag}>{risk}</span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* 맞춤 권장사항 */}
                     <div className="card mt-4">
-                        <h3 className="subtitle mb-3">💡 맞춤 권장 사항</h3>
-                        <ul className={styles.recommendList}>
-                            {result.recommendations.map((rec: string, idx: number) => (
-                                <li key={idx}>{rec}</li>
-                            ))}
+                        <h3 className={styles.resultSectionTitle}>💡 맞춤 권장사항</h3>
+                        {result.recommendations.map((rec, idx) => (
+                            <div key={idx} className={styles.recommendItem}>
+                                <span className={styles.recommendCategory}>{rec.category}</span>
+                                <p className={styles.recommendText}>{rec.text}</p>
+                                <span className={styles.recommendSource}>📚 {rec.source}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* 운동 처방 */}
+                    <div className="card mt-4">
+                        <h3 className={styles.resultSectionTitle}>🏋️ 맞춤 운동 처방</h3>
+                        {result.exercisePrescription.map((ex, idx) => (
+                            <div key={idx} className={styles.exerciseRx}>
+                                <div className={styles.exerciseRxHeader}>
+                                    <strong>{ex.type}</strong>
+                                    <span className={styles.exerciseFreq}>{ex.frequency}</span>
+                                </div>
+                                <p className={styles.exerciseIntensity}>강도: {ex.intensity}</p>
+                                {ex.caution && (
+                                    <p className={styles.exerciseCaution}>⚠️ {ex.caution}</p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* 참고 가이드라인 */}
+                    <div className={`card mt-4 ${styles.guidelineCard}`}>
+                        <h3 className={styles.resultSectionTitle}>📖 참고 가이드라인</h3>
+                        <ul className={styles.guidelineList}>
+                            <li>FRAIL Scale - Morley et al. (2012)</li>
+                            <li>SARC-F - Malmstrom & Morley (2013)</li>
+                            <li>대한노인병학회 노쇠 관리 권고안</li>
+                            <li>WHO 신체활동 가이드라인 (2020)</li>
+                            <li>ACSM 노인 운동 처방 지침</li>
                         </ul>
                     </div>
 
@@ -677,19 +831,6 @@ export default function AssessmentPage() {
                         onClick={() => {
                             setStep(1);
                             setResult(null);
-                            setFormData({
-                                age: 65,
-                                gender: '',
-                                height: 165,
-                                weight: 60,
-                                conditions: [],
-                                dailyLiving: {},
-                                selfTest: {},
-                                exerciseFrequency: '',
-                                exerciseTypes: [],
-                                exerciseLocation: '',
-                                exerciseDuration: '',
-                            });
                         }}
                     >
                         다시 평가하기
