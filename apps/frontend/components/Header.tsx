@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
 
@@ -28,10 +29,9 @@ export default function Header() {
         <header className={styles.header}>
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
-                    <span className={styles.logoIcon}>💚</span>
+                    <Image src="/logo.png" alt="Noricare" width={28} height={28} className={styles.logoImage} />
                     <span className={styles.logoText}>Noricare</span>
                 </Link>
-                <h1 className={styles.title}>{getTitle()}</h1>
                 <div className={styles.actions}>
                     <button className={styles.iconBtn} aria-label="알림">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

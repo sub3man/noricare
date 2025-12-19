@@ -4,8 +4,17 @@ import Header from '@/components/Header'
 import BottomNav from '@/components/BottomNav'
 
 export const metadata: Metadata = {
-    title: 'Noricare - 스마트 건강 케어',
-    description: 'AI 기반 맞춤형 운동 처방 서비스',
+    title: '노리케어 - 만성질환 전문 AI 헬스케어',
+    description: '만성질환 전문 개인 맞춤 AI 헬스케어 서비스, 노리케어',
+    icons: {
+        icon: '/favicon.png',
+        apple: '/logo.png',
+    },
+    openGraph: {
+        title: '노리케어 - 만성질환 전문 AI 헬스케어',
+        description: '만성질환 전문 개인 맞춤 AI 헬스케어 서비스, 노리케어',
+        images: ['/logo.png'],
+    },
 }
 
 export default function RootLayout({
