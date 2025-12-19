@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './page.module.css';
 import ExerciseSession from '@/components/ExerciseSession';
 import NutritionTracker from '@/components/NutritionTracker';
@@ -46,6 +47,20 @@ export default function Home() {
         mainReason: '하지 근력 강화',
         details: '평가 결과 하지 근기능이 다소 부족하여 스쿼트, 런지 등 하지 운동을 우선 배치했습니다.',
         considerations: ['관절 상태 양호', '균형 능력 정상'],
+    };
+
+    // Dr. 노리 맞춤 메시지 (사용자 상태 기반)
+    const getCoachMessage = () => {
+        const completedPercent = Math.round((completedCount / todayExercises.length) * 100);
+        if (completedPercent === 100) {
+            return `${user.name}님, 오늘 운동을 모두 완료하셨네요! 🎉 내일도 이 컨디션 유지해봐요!`;
+        } else if (completedPercent >= 50) {
+            return `${user.name}님, 벌써 절반 이상 하셨어요! 💪 ${prescriptionReason.mainReason}에 집중해서 마무리해봐요.`;
+        } else if (healthSummary.streak >= 5) {
+            return `${user.name}님, ${healthSummary.streak}일 연속 운동 중이시네요! 꾸준함이 정말 대단해요. 오늘 ${prescriptionReason.mainReason} 운동으로 시작해볼까요?`;
+        } else {
+            return `${user.name}님, 오늘은 ${prescriptionReason.mainReason}을 위한 운동을 준비했어요. 관절에 무리 없이 천천히 시작해보세요!`;
+        }
     };
 
     const getCategoryColor = (type: string) => {
@@ -105,15 +120,23 @@ export default function Home() {
             {/* Coach Profile - Human Touch */}
             <section className={`card ${styles.coachCard} mt-5`}>
                 <div className={styles.coachProfile}>
-                    <div className={styles.coachAvatar}>👨‍⚕️</div>
+                    <div className={styles.coachAvatar}>
+                        <Image
+                            src="/dr-nori.jpg"
+                            alt="Dr. 노리"
+                            width={56}
+                            height={56}
+                            style={{ borderRadius: '50%', objectFit: 'cover' }}
+                        />
+                    </div>
                     <div className={styles.coachInfo}>
-                        <span className={styles.coachLabel}>담당 코치</span>
-                        <span className={styles.coachName}>AI 노리 코치</span>
+                        <span className={styles.coachLabel}>담당 전문의</span>
+                        <span className={styles.coachName}>Dr. 노리</span>
                     </div>
                 </div>
                 <div className={styles.coachMessage}>
                     <div className={styles.messageBubble}>
-                        {user.name}님, 오늘도 화이팅! 💪 어제보다 조금씩 나아지고 있어요!
+                        {getCoachMessage()}
                     </div>
                 </div>
             </section>
