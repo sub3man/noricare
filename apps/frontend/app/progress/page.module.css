@@ -11,37 +11,41 @@
 .weekGrid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: var(--spacing-2);
+    gap: 4px;
     margin: var(--spacing-4) 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .dayItem {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-1);
-    padding: var(--spacing-2);
+    gap: 2px;
+    padding: 6px 2px;
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
+    min-width: 0;
 }
 
 .dayLabel {
-    font-size: var(--font-size-xs);
+    font-size: 11px;
     color: var(--color-text-tertiary);
     font-weight: var(--font-weight-medium);
 }
 
 .dayIcon {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-full);
     background: var(--grey-100);
-    font-size: var(--font-size-sm);
+    font-size: 12px;
     font-weight: var(--font-weight-bold);
     color: var(--grey-400);
+    flex-shrink: 0;
 }
 
 .dayItem.completed .dayIcon {
@@ -61,7 +65,7 @@
 }
 
 .dayCount {
-    font-size: var(--font-size-xs);
+    font-size: 10px;
     color: var(--color-text-secondary);
 }
 
@@ -70,24 +74,27 @@
     justify-content: space-around;
     padding-top: var(--spacing-4);
     border-top: 1px solid var(--color-divider);
+    width: 100%;
 }
 
 .weekStatItem {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .weekStatValue {
-    font-size: var(--font-size-lg);
+    font-size: 18px;
     font-weight: var(--font-weight-bold);
     color: var(--color-primary);
 }
 
 .weekStatLabel {
-    font-size: var(--font-size-xs);
+    font-size: 11px;
     color: var(--color-text-secondary);
-    margin-top: var(--spacing-1);
+    margin-top: 2px;
 }
 
 /* Quick Actions */
