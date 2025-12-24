@@ -3,9 +3,7 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 
-import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
-
+// FRAIL Scale (국제 표준 노쇠 평가)
 const frailQuestions = [
     {
         id: 'fatigue',
@@ -404,33 +402,8 @@ export default function AssessmentPage() {
 
     const handleSubmit = async () => {
         setIsLoading(true);
-        const results = calculateResults();
-
-        // Save to Supabase
-        try {
-            const { error } = await supabase
-                .from('assessments')
-                .insert({
-                    age: formData.age,
-                    gender: formData.gender,
-                    height: formData.height,
-                    weight: formData.weight,
-                    frail_score: results.frailScore,
-                    sarcf_score: results.sarcfScore,
-                    form_data: formData,
-                    result_json: results,
-                });
-
-            if (error) {
-                console.error('Error saving assessment:', error);
-                alert('결과 저장 중 오류가 발생했습니다: ' + error.message);
-            }
-        } catch (e) {
-            console.error('Unexpected error:', e);
-        }
-
-        // await new Promise(resolve => setTimeout(resolve, 2000));
-        setResult(results);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setResult(calculateResults());
         setIsLoading(false);
         setStep(6);
     };
