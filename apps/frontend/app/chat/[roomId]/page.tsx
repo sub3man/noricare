@@ -34,6 +34,7 @@ export default function ChatRoomPage() {
     const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         fetchRoomAndMessages();
@@ -211,6 +212,8 @@ export default function ChatRoomPage() {
             setNewMessage(content);
         } finally {
             setIsSending(false);
+            // 메시지 전송 후 입력창에 다시 포커스
+            setTimeout(() => inputRef.current?.focus(), 100);
         }
     };
 
@@ -274,6 +277,7 @@ export default function ChatRoomPage() {
             {/* Input */}
             <div className={styles.inputContainer}>
                 <input
+                    ref={inputRef}
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
@@ -281,6 +285,7 @@ export default function ChatRoomPage() {
                     placeholder="메시지를 입력하세요..."
                     className={styles.input}
                     disabled={isSending}
+                    autoFocus
                 />
                 <button
                     className={styles.sendButton}
