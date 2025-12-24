@@ -112,18 +112,46 @@ export default function ChatRoomPage() {
         const content = newMessage.trim();
         setNewMessage('');
 
+        // 낙관적 UI 업데이트 - 즉시 메시지 표시
+        const tempMessage: Message = {
+            id: `temp-${Date.now()}`,
+            room_id: roomId,
+            sender_id: currentUserId,
+            sender_type: 'user',
+            content,
+            is_read: false,
+            created_at: new Date().toISOString(),
+        };
+        setMessages(prev => [...prev, tempMessage]);
+
         try {
             // 메시지 저장
-            const { error } = await supabase
+            const { data: insertedMsg, error } = await supabase
                 .from('chat_messages')
                 .insert({
                     room_id: roomId,
                     sender_id: currentUserId,
                     sender_type: 'user',
                     content,
-                });
+                })
+                .select()
+                .single();
 
-            if (error) throw error;
+            if (error) {
+                console.error('Message insert error:', error);
+                // 실패 시 임시 메시지 제거
+                setMessages(prev => prev.filter(m => m.id !== tempMessage.id));
+                setNewMessage(content);
+                alert('메시지 전송에 실패했습니다. 다시 시도해주세요.');
+                return;
+            }
+
+            // 임시 메시지를 실제 메시지로 교체
+            if (insertedMsg) {
+                setMessages(prev => prev.map(m =>
+                    m.id === tempMessage.id ? insertedMsg : m
+                ));
+            }
 
             // 채팅방 마지막 메시지 업데이트
             await supabase
@@ -134,31 +162,9 @@ export default function ChatRoomPage() {
                 })
                 .eq('id', roomId);
 
-            // 데모: 코치 자동 응답 (1초 후)
-            setTimeout(async () => {
-                const responses = [
-                    '좋은 질문이에요! 제가 도와드릴게요.',
-                    '운동하실 때 무리하지 마시고 천천히 진행해보세요.',
-                    '오늘도 화이팅! 꾸준함이 중요해요 💪',
-                    '궁금한 점이 있으시면 언제든 물어보세요!',
-                ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-
-                await supabase.from('chat_messages').insert({
-                    room_id: roomId,
-                    sender_id: 'demo-coach-1',
-                    sender_type: 'coach',
-                    content: randomResponse,
-                });
-
-                await supabase.from('chat_rooms').update({
-                    last_message: randomResponse,
-                    last_message_at: new Date().toISOString(),
-                }).eq('id', roomId);
-            }, 1000);
-
         } catch (error) {
             console.error('Error sending message:', error);
+            setMessages(prev => prev.filter(m => m.id !== tempMessage.id));
             setNewMessage(content);
         } finally {
             setIsSending(false);
