@@ -139,10 +139,10 @@ export default function ChatRoomPage() {
 
             if (error) {
                 console.error('Message insert error:', error);
-                // 실패 시 임시 메시지 제거
                 setMessages(prev => prev.filter(m => m.id !== tempMessage.id));
                 setNewMessage(content);
                 alert('메시지 전송에 실패했습니다. 다시 시도해주세요.');
+                setIsSending(false);
                 return;
             }
 
@@ -161,6 +161,49 @@ export default function ChatRoomPage() {
                     last_message_at: new Date().toISOString(),
                 })
                 .eq('id', roomId);
+
+            // AI 코치 응답 받기
+            try {
+                const aiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: content,
+                        conversationHistory: messages.slice(-10),
+                    }),
+                });
+
+                if (aiResponse.ok) {
+                    const { response: coachResponse } = await aiResponse.json();
+
+                    // 코치 응답 저장
+                    const { data: coachMsg } = await supabase
+                        .from('chat_messages')
+                        .insert({
+                            room_id: roomId,
+                            sender_id: 'admin@livelively.kr',
+                            sender_type: 'coach',
+                            content: coachResponse,
+                        })
+                        .select()
+                        .single();
+
+                    if (coachMsg) {
+                        setMessages(prev => [...prev, coachMsg]);
+                    }
+
+                    // 채팅방 마지막 메시지 업데이트
+                    await supabase
+                        .from('chat_rooms')
+                        .update({
+                            last_message: coachResponse,
+                            last_message_at: new Date().toISOString(),
+                        })
+                        .eq('id', roomId);
+                }
+            } catch (aiError) {
+                console.error('AI response error:', aiError);
+            }
 
         } catch (error) {
             console.error('Error sending message:', error);
