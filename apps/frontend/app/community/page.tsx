@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import styles from './page.module.css';
 
@@ -118,6 +119,66 @@ export default function CommunityPage() {
         }
     };
 
+    const router = useRouter();
+
+    // 사용자에게 채팅 신청
+    const startChatWithUser = async (targetUserId: string, targetUserName: string) => {
+        if (!currentUserId) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        if (targetUserId === currentUserId) {
+            alert('자신에게는 채팅을 신청할 수 없습니다.');
+            return;
+        }
+
+        try {
+            // 이미 채팅방이 있는지 확인
+            const { data: existingRoom } = await supabase
+                .from('chat_rooms')
+                .select('id')
+                .eq('user_id', currentUserId)
+                .eq('coach_id', targetUserId)
+                .single();
+
+            if (existingRoom) {
+                router.push(`/chat/${existingRoom.id}`);
+                return;
+            }
+
+            // 현재 사용자 프로필 가져오기
+            const { data: myProfile } = await supabase
+                .from('user_profiles')
+                .select('name')
+                .eq('id', currentUserId)
+                .single();
+
+            // 새 채팅방 생성
+            const { data: newRoom, error } = await supabase
+                .from('chat_rooms')
+                .insert({
+                    user_id: currentUserId,
+                    user_name: myProfile?.name || '사용자',
+                    coach_id: targetUserId,
+                    coach_name: targetUserName,
+                    last_message: '채팅이 시작되었습니다.',
+                    last_message_at: new Date().toISOString(),
+                })
+                .select()
+                .single();
+
+            if (error) throw error;
+
+            if (newRoom) {
+                router.push(`/chat/${newRoom.id}`);
+            }
+        } catch (error) {
+            console.error('Error starting chat:', error);
+            alert('채팅방 생성에 실패했습니다.');
+        }
+    };
+
     const formatTime = (dateString: string) => {
         const date = new Date(dateString);
         const now = new Date();
@@ -194,6 +255,15 @@ export default function CommunityPage() {
                                     <span className={styles.actionIcon}>💬</span>
                                     <span>{post.comment_count}</span>
                                 </button>
+                                {post.user_id !== currentUserId && (
+                                    <button
+                                        className={styles.actionButton}
+                                        onClick={() => startChatWithUser(post.user_id, post.user_name)}
+                                    >
+                                        <span className={styles.actionIcon}>✉️</span>
+                                        <span>채팅</span>
+                                    </button>
+                                )}
                             </div>
                         </article>
                     ))

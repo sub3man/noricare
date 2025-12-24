@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 import styles from './page.module.css';
 
 interface UserProfile {
@@ -19,16 +21,63 @@ interface HealthSummary {
 }
 
 export default function ProfilePage() {
+    const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [profile, setProfile] = useState<UserProfile>({
-        name: '관리자',
-        email: 'admin@livelively.kr',
-        birthDate: '1989-05-15',
-        gender: 'M',
-        phone: '010-1234-5678',
+        name: '',
+        email: '',
+        birthDate: '',
+        gender: '',
+        phone: '',
     });
 
     const [editedProfile, setEditedProfile] = useState<UserProfile>(profile);
+
+    useEffect(() => {
+        loadUserProfile();
+    }, []);
+
+    const loadUserProfile = async () => {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                router.push('/login');
+                return;
+            }
+
+            const { data: profileData } = await supabase
+                .from('user_profiles')
+                .select('*')
+                .eq('id', user.id)
+                .single();
+
+            if (profileData) {
+                const newProfile = {
+                    name: profileData.name || '',
+                    email: profileData.email || user.email || '',
+                    birthDate: profileData.birth_date || '',
+                    gender: profileData.gender || '',
+                    phone: profileData.phone || '',
+                };
+                setProfile(newProfile);
+                setEditedProfile(newProfile);
+            } else {
+                setProfile(prev => ({ ...prev, email: user.email || '' }));
+            }
+        } catch (error) {
+            console.error('Error loading profile:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleLogout = async () => {
+        if (confirm('로그아웃 하시겠습니까?')) {
+            await supabase.auth.signOut();
+            router.push('/login');
+        }
+    };
 
     const healthSummary: HealthSummary = {
         sppbScore: 9,
@@ -55,6 +104,14 @@ export default function ProfilePage() {
         { icon: '📝', label: '이용약관', href: '#' },
         { icon: '💬', label: '문의하기', href: '#' },
     ];
+
+    if (isLoading) {
+        return (
+            <div className="container animate-fade-in" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+                <p>불러오는 중...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="container animate-fade-in">
@@ -226,7 +283,10 @@ export default function ProfilePage() {
 
             {/* Logout */}
             <section className="mt-6 mb-8">
-                <button className="btn btn-ghost btn-block text-error">
+                <button
+                    className="btn btn-ghost btn-block text-error"
+                    onClick={handleLogout}
+                >
                     로그아웃
                 </button>
             </section>
