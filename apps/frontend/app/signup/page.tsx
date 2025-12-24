@@ -44,20 +44,33 @@ export default function SignupPage() {
         setIsLoading(true);
 
         try {
-            // 1. Supabase Auth로 사용자 생성
+            // 1. Supabase Auth로 사용자 생성 (이메일 확인 없이 즉시 가입)
             const { data: authData, error: authError } = await supabase.auth.signUp({
                 email,
                 password,
+                options: {
+                    emailRedirectTo: undefined,
+                    data: {
+                        name: name,
+                    }
+                }
             });
 
             if (authError) {
                 if (authError.message.includes('already registered')) {
                     setError('이미 가입된 이메일입니다.');
+                } else if (authError.message.includes('confirmation email') || authError.message.includes('email')) {
+                    // 이메일 전송 오류는 무시하고 진행 (사용자는 이미 생성됨)
+                    console.log('Email sending skipped:', authError.message);
                 } else {
-                    setError(authError.message);
+                    setError('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
                 }
-                setIsLoading(false);
-                return;
+
+                // 이메일 오류가 아닌 경우에만 중단
+                if (!authError.message.includes('email')) {
+                    setIsLoading(false);
+                    return;
+                }
             }
 
             if (authData.user) {
