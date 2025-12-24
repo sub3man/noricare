@@ -64,12 +64,26 @@ export default function ChatListPage() {
         return date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' });
     };
 
-    // 데모용 샘플 채팅방 생성
-    const createDemoRoom = async () => {
+    // 노리 코치와 채팅방 생성
+    const startCoachChat = async () => {
         try {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
                 alert('로그인이 필요합니다.');
+                return;
+            }
+
+            // 이미 코치와의 채팅방이 있는지 확인
+            const { data: existingRoom } = await supabase
+                .from('chat_rooms')
+                .select('id')
+                .eq('user_id', user.id)
+                .eq('coach_id', 'admin@livelively.kr')
+                .single();
+
+            if (existingRoom) {
+                // 이미 채팅방이 있으면 해당 채팅방으로 이동
+                window.location.href = `/chat/${existingRoom.id}`;
                 return;
             }
 
@@ -79,21 +93,35 @@ export default function ChatListPage() {
                 .eq('id', user.id)
                 .single();
 
-            const { error } = await supabase
+            const { data: newRoom, error } = await supabase
                 .from('chat_rooms')
                 .insert({
                     user_id: user.id,
                     user_name: profile?.name || '사용자',
-                    coach_id: 'demo-coach-1',
-                    coach_name: '김건강 코치',
-                    last_message: '안녕하세요! 무엇을 도와드릴까요?',
+                    coach_id: 'admin@livelively.kr',
+                    coach_name: '노리 코치',
+                    last_message: '안녕하세요! 노리케어 코치입니다. 무엇을 도와드릴까요?',
                     last_message_at: new Date().toISOString(),
-                });
+                })
+                .select()
+                .single();
 
             if (error) throw error;
+
+            // 첫 메시지 자동 생성
+            if (newRoom) {
+                await supabase.from('chat_messages').insert({
+                    room_id: newRoom.id,
+                    sender_id: 'admin@livelively.kr',
+                    sender_type: 'coach',
+                    content: '안녕하세요! 노리케어 코치입니다. 운동, 건강, 영양 등 궁금한 점이 있으시면 편하게 물어보세요!',
+                });
+            }
+
             fetchChatRooms();
         } catch (error) {
-            console.error('Error creating demo room:', error);
+            console.error('Error creating coach chat:', error);
+            alert('채팅방 생성 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         }
     };
 
@@ -115,9 +143,9 @@ export default function ChatListPage() {
                     <div className={styles.empty}>
                         <div className={styles.emptyIcon}>💬</div>
                         <p>아직 채팅이 없습니다</p>
-                        <p className={styles.emptySubtext}>코치와 상담을 시작해보세요</p>
-                        <button className={styles.demoButton} onClick={createDemoRoom}>
-                            데모 채팅방 만들기
+                        <p className={styles.emptySubtext}>노리 코치와 상담을 시작해보세요</p>
+                        <button className={styles.demoButton} onClick={startCoachChat}>
+                            노리 코치와 대화하기
                         </button>
                     </div>
                 ) : (
