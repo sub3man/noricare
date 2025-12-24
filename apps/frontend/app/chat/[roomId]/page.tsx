@@ -17,6 +17,7 @@ interface Message {
 
 interface ChatRoom {
     id: string;
+    coach_id: string;
     coach_name: string;
     user_id: string;
 }
@@ -163,47 +164,51 @@ export default function ChatRoomPage() {
                 })
                 .eq('id', roomId);
 
-            // AI 코치 응답 받기
-            try {
-                const aiResponse = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: content,
-                        conversationHistory: messages.slice(-10),
-                    }),
-                });
+            // 노리 코치와의 채팅에서만 AI 응답 받기
+            const isCoachChat = room?.coach_id === 'admin@livelively.kr';
 
-                if (aiResponse.ok) {
-                    const { response: coachResponse } = await aiResponse.json();
+            if (isCoachChat) {
+                try {
+                    const aiResponse = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: content,
+                            conversationHistory: messages.slice(-10),
+                        }),
+                    });
 
-                    // 코치 응답 저장
-                    const { data: coachMsg } = await supabase
-                        .from('chat_messages')
-                        .insert({
-                            room_id: roomId,
-                            sender_id: 'admin@livelively.kr',
-                            sender_type: 'coach',
-                            content: coachResponse,
-                        })
-                        .select()
-                        .single();
+                    if (aiResponse.ok) {
+                        const { response: coachResponse } = await aiResponse.json();
 
-                    if (coachMsg) {
-                        setMessages(prev => [...prev, coachMsg]);
+                        // 코치 응답 저장
+                        const { data: coachMsg } = await supabase
+                            .from('chat_messages')
+                            .insert({
+                                room_id: roomId,
+                                sender_id: 'admin@livelively.kr',
+                                sender_type: 'coach',
+                                content: coachResponse,
+                            })
+                            .select()
+                            .single();
+
+                        if (coachMsg) {
+                            setMessages(prev => [...prev, coachMsg]);
+                        }
+
+                        // 채팅방 마지막 메시지 업데이트
+                        await supabase
+                            .from('chat_rooms')
+                            .update({
+                                last_message: coachResponse,
+                                last_message_at: new Date().toISOString(),
+                            })
+                            .eq('id', roomId);
                     }
-
-                    // 채팅방 마지막 메시지 업데이트
-                    await supabase
-                        .from('chat_rooms')
-                        .update({
-                            last_message: coachResponse,
-                            last_message_at: new Date().toISOString(),
-                        })
-                        .eq('id', roomId);
+                } catch (aiError) {
+                    console.error('AI response error:', aiError);
                 }
-            } catch (aiError) {
-                console.error('AI response error:', aiError);
             }
 
         } catch (error) {
