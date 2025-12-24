@@ -251,7 +251,10 @@ export default function CommunityPage() {
                                     <span className={styles.actionIcon}>👏</span>
                                     <span>{post.cheer_count}</span>
                                 </button>
-                                <button className={styles.actionButton}>
+                                <button
+                                    className={styles.actionButton}
+                                    onClick={() => router.push(`/community/${post.id}`)}
+                                >
                                     <span className={styles.actionIcon}>💬</span>
                                     <span>{post.comment_count}</span>
                                 </button>
