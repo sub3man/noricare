@@ -1,0 +1,222 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--grey-50) 0%, #ffffff 100%);
+    padding: var(--spacing-4);
+}
+
+.content {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+/* Progress Bar */
+.progressContainer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-6);
+}
+
+.progressBar {
+    flex: 1;
+    height: 4px;
+    background: var(--grey-200);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.progressText {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    min-width: 40px;
+}
+
+/* Back Button */
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-2) 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: var(--spacing-4);
+    transition: color 0.2s ease;
+}
+
+.backButton:hover {
+    color: var(--color-primary);
+}
+
+/* Step Content */
+.stepContent {
+    background: var(--color-bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.stepHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+}
+
+.stepTitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.stepSubtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+}
+
+/* Complete Icon */
+.completeIcon {
+    font-size: 64px;
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Input Group */
+.inputGroup {
+    margin-bottom: var(--spacing-4);
+}
+
+.input {
+    width: 100%;
+    padding: var(--spacing-4);
+    font-size: var(--font-size-md);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--grey-50);
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--color-primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px var(--blue-50);
+}
+
+.input::placeholder {
+    color: var(--color-text-placeholder);
+}
+
+.inputHint {
+    margin-top: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-error);
+}
+
+/* Error Message */
+.errorMessage {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--color-error-light);
+    border-radius: var(--radius-md);
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-4);
+}
+
+.errorIcon {
+    font-size: 16px;
+}
+
+/* Next Button */
+.nextButton {
+    width: 100%;
+    padding: var(--spacing-4);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: #ffffff;
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: var(--spacing-2);
+}
+
+.nextButton:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+}
+
+.nextButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.nextButton:disabled {
+    background: var(--grey-300);
+    cursor: not-allowed;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: var(--spacing-6);
+}
+
+.footerText {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.link {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
