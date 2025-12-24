@@ -1,0 +1,161 @@
+.container {
+    padding: var(--spacing-4);
+    padding-bottom: calc(var(--spacing-8) + 60px);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    margin-bottom: var(--spacing-5);
+}
+
+.title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+/* Chat List */
+.chatList {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Loading */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-8);
+    color: var(--color-text-secondary);
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--grey-200);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-3);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty State */
+.empty {
+    text-align: center;
+    padding: var(--spacing-8);
+    color: var(--color-text-secondary);
+}
+
+.emptyIcon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-3);
+}
+
+.emptySubtext {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin-top: var(--spacing-1);
+}
+
+.demoButton {
+    margin-top: var(--spacing-4);
+    padding: var(--spacing-3) var(--spacing-5);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    background: var(--blue-50);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.demoButton:hover {
+    background: var(--blue-100);
+}
+
+/* Chat Room Item */
+.chatRoom {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-2);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.chatRoom:hover {
+    background: var(--grey-50);
+    transform: translateX(4px);
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-500), var(--teal-500));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-md);
+    flex-shrink: 0;
+}
+
+.chatInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.chatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-1);
+}
+
+.coachName {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+}
+
+.time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+}
+
+.lastMessage {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.unreadBadge {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 var(--spacing-2);
+    background: var(--color-error);
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

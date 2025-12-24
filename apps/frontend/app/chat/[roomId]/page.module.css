@@ -1,0 +1,182 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--color-bg);
+}
+
+/* Loading */
+.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--grey-200);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-divider);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.backButton {
+    padding: var(--spacing-2);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.coachName {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-md);
+}
+
+.status {
+    font-size: var(--font-size-xs);
+    color: var(--green-500);
+}
+
+/* Messages Container */
+.messagesContainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.emptyMessages {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* Message */
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+}
+
+.message.sent {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.message.received {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.messageBubble {
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    word-break: break-word;
+}
+
+.sent .messageBubble {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-bottom-right-radius: var(--spacing-1);
+}
+
+.received .messageBubble {
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border-bottom-left-radius: var(--spacing-1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.messageTime {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    margin-top: var(--spacing-1);
+}
+
+/* Input Container */
+.inputContainer {
+    display: flex;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-divider);
+}
+
+.input {
+    flex: 1;
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: var(--font-size-base);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--grey-50);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input:focus {
+    border-color: var(--color-primary);
+    background: #ffffff;
+}
+
+.input::placeholder {
+    color: var(--color-text-placeholder);
+}
+
+.sendButton {
+    padding: var(--spacing-3) var(--spacing-5);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: #ffffff;
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sendButton:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+}
+
+.sendButton:disabled {
+    background: var(--grey-300);
+    cursor: not-allowed;
+}

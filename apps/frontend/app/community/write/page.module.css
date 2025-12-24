@@ -1,0 +1,127 @@
+.container {
+    min-height: 100vh;
+    background: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-4);
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-divider);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.cancelButton {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.cancelButton:hover {
+    color: var(--color-text-primary);
+}
+
+.submitButton {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: #ffffff;
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+}
+
+.submitButton:disabled {
+    background: var(--grey-300);
+    cursor: not-allowed;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: var(--spacing-4);
+}
+
+.textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: var(--spacing-4);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+    background: var(--color-bg-card);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    resize: none;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--blue-50);
+}
+
+.textarea::placeholder {
+    color: var(--color-text-placeholder);
+}
+
+.charCount {
+    text-align: right;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin-top: var(--spacing-2);
+}
+
+/* Error */
+.errorMessage {
+    margin: 0 var(--spacing-4);
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--color-error-light);
+    border-radius: var(--radius-md);
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+}
+
+/* Tips */
+.tips {
+    padding: var(--spacing-4);
+    margin-top: auto;
+}
+
+.tipItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.tipIcon {
+    font-size: 16px;
+}
