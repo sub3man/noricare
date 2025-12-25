@@ -86,9 +86,30 @@ export default function ProfilePage() {
         currentStreak: 5,
     };
 
-    const handleSave = () => {
-        setProfile(editedProfile);
-        setIsEditing(false);
+    const handleSave = async () => {
+        try {
+            const { error } = await supabase
+                .from('user_profiles')
+                .update({
+                    name: editedProfile.name,
+                    email: editedProfile.email,
+                    birth_date: editedProfile.birthDate, // Supabase column name might be snake_case
+                    gender: editedProfile.gender,
+                    phone: editedProfile.phone,
+                })
+                .eq('id', (await supabase.auth.getUser()).data.user?.id);
+
+            if (error) throw error;
+
+            setProfile(editedProfile);
+            setIsEditing(false);
+            alert('프로필이 업데이트되었습니다.');
+            // Refresh to update header/other components
+            router.refresh();
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('프로필 업데이트에 실패했습니다.');
+        }
     };
 
     const handleCancel = () => {

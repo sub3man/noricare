@@ -125,6 +125,8 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    flex-shrink: 0;
+    min-width: 60px;
 }
 
 .submitBtn:disabled {
