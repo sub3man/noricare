@@ -1,0 +1,338 @@
+.container {
+    padding: 16px;
+    padding-bottom: 120px;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+
+.loading,
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 16px;
+    color: var(--text-secondary);
+}
+
+.primaryBtn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.backBtn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--text-secondary);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.riskBadge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.riskLabel {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.riskValue {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+}
+
+.tab {
+    flex: 1;
+    padding: 12px 8px;
+    border: none;
+    background: white;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    color: var(--text-secondary);
+}
+
+.tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.tabContent {
+    min-height: 400px;
+}
+
+/* Overview Tab */
+.overview {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card.warning {
+    background: #fff8e1;
+    border: 1px solid #ffcc02;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.cardHeader h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.cardIcon {
+    font-size: 20px;
+}
+
+.required {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statLabel {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.statValue {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.examples {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.exampleLabel {
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.precautionList {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #8b6914;
+}
+
+/* Weekly Plan Tab */
+.weeklyPlan {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dayCard {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    border-left: 4px solid #ccc;
+}
+
+.dayCard.rest {
+    border-left-color: #9e9e9e;
+    opacity: 0.7;
+}
+
+.dayCard.aerobic {
+    border-left-color: #2196f3;
+}
+
+.dayCard.resistance {
+    border-left-color: #ff5722;
+}
+
+.dayCard.combined {
+    border-left-color: #9c27b0;
+}
+
+.dayHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.dayName {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.dayType {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.dayBody {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dayDuration {
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.dayExercises {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.dayExercises li {
+    margin: 2px 0;
+}
+
+/* Exercise List Tab */
+.exerciseList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sectionTitle {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 16px 0 8px 0;
+    color: var(--text-primary);
+}
+
+.sectionTitle:first-child {
+    margin-top: 0;
+}
+
+.exerciseCard {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.exerciseNum {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.exerciseInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.exerciseName {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.exerciseDesc {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: white;
+    border-top: 1px solid #eee;
+}
+
+.startBtn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary) 0%, #5a55f0 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}

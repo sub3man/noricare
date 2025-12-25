@@ -848,9 +848,39 @@ export default function AssessmentPage() {
 
                     <button
                         className="btn btn-primary btn-lg btn-block mt-6"
-                        onClick={() => window.location.href = '/exercise'}
+                        onClick={async () => {
+                            try {
+                                // Generate ACSM/AHA based prescription
+                                const prescriptionData = {
+                                    age: formData.age,
+                                    gender: formData.gender,
+                                    frailScore: result.frailScore,
+                                    sppbScore: Math.max(0, 12 - result.frailScore * 2), // Estimate SPPB from FRAIL
+                                    sarcfScore: result.sarcfScore,
+                                    conditions: formData.conditions,
+                                    hasFallHistory: formData.sarcf['falls'] > 0,
+                                };
+
+                                const response = await fetch('/api/prescription', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(prescriptionData),
+                                });
+
+                                if (response.ok) {
+                                    const { prescription } = await response.json();
+                                    localStorage.setItem('lastPrescription', JSON.stringify(prescription));
+                                    window.location.href = '/prescription';
+                                } else {
+                                    window.location.href = '/exercise';
+                                }
+                            } catch (error) {
+                                console.error('Prescription generation error:', error);
+                                window.location.href = '/exercise';
+                            }
+                        }}
                     >
-                        맞춤 운동 확인하기
+                        🏋️ 맞춤 운동 처방 확인하기
                     </button>
 
                     <button
