@@ -168,6 +168,13 @@ export default function ExercisePage() {
             <section className={styles.header}>
                 <h2 className="headline">맞춤 운동 처방</h2>
                 <p className="caption mt-2">AI가 분석한 당신을 위한 운동이에요</p>
+                <button
+                    className={`btn btn-sm ${styles.prescriptionBtn}`}
+                    onClick={() => window.location.href = '/prescription'}
+                    style={{ marginTop: '12px' }}
+                >
+                    📋 나의 맞춤 처방 보기
+                </button>
             </section>
 
             {/* Category Filter */}
