@@ -411,3 +411,43 @@
     align-items: center;
     justify-content: center;
 }
+
+/* Onboarding Card */
+.onboardingCard {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--blue-600) 100%);
+    color: white;
+    text-align: center;
+}
+
+.onboardingContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+}
+
+.onboardingIcon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-2);
+}
+
+.onboardingTitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: white;
+}
+
+.onboardingDesc {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+}
+
+/* Empty Day Card */
+.emptyDayCard {
+    text-align: center;
+    padding: var(--spacing-5);
+    background: var(--grey-50);
+    border: 1px dashed var(--grey-300);
+}
