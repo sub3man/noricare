@@ -16,7 +16,7 @@
     font-size: 16px;
     cursor: pointer;
     padding: 8px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .title {
@@ -64,11 +64,11 @@
 
 .postTime {
     font-size: 13px;
-    color: var(--text-tertiary);
+    color: var(--color-text-tertiary);
 }
 
 .chatBtn {
-    background: var(--primary);
+    background: var(--color-primary);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -81,7 +81,7 @@
 .postContent p {
     font-size: 15px;
     line-height: 1.6;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
 }
 
 .commentsSection {
@@ -113,11 +113,11 @@
 }
 
 .input:focus {
-    border-color: var(--primary);
+    border-color: var(--color-primary);
 }
 
 .submitBtn {
-    background: var(--primary);
+    background: var(--color-primary);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -142,7 +142,7 @@
 
 .noComments {
     text-align: center;
-    color: var(--text-tertiary);
+    color: var(--color-text-tertiary);
     padding: 20px;
     font-size: 14px;
 }
@@ -184,14 +184,14 @@
 
 .commentTime {
     font-size: 12px;
-    color: var(--text-tertiary);
+    color: var(--color-text-tertiary);
     margin-left: 8px;
 }
 
 .chatBtnSmall {
     background: none;
-    border: 1px solid var(--primary);
-    color: var(--primary);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
     padding: 4px 10px;
     border-radius: 12px;
     font-size: 12px;
@@ -201,6 +201,6 @@
 .commentContent {
     font-size: 14px;
     line-height: 1.5;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
     margin-left: 42px;
 }

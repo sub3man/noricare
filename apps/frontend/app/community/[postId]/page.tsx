@@ -95,10 +95,10 @@ export default function PostDetailPage() {
 
             if (error) throw error;
 
-            // 댓글 수 업데이트
+            // 댓글 수 업데이트 (현재 댓글 수 + 1)
             await supabase
                 .from('community_posts')
-                .update({ comment_count: (post?.comment_count || 0) + 1 })
+                .update({ comment_count: comments.length + 1 })
                 .eq('id', postId);
 
             setNewComment('');

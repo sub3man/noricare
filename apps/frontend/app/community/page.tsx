@@ -260,7 +260,7 @@ export default function CommunityPage() {
                                 </button>
                                 {post.user_id !== currentUserId && (
                                     <button
-                                        className={styles.actionButton}
+                                        className={styles.dmButton}
                                         onClick={() => startChatWithUser(post.user_id, post.user_name)}
                                     >
                                         <span className={styles.actionIcon}>✉️</span>

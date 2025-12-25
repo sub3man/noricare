@@ -13,11 +13,11 @@
     justify-content: center;
     min-height: 60vh;
     gap: 16px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .primaryBtn {
-    background: var(--primary);
+    background: var(--color-primary);
     color: white;
     border: none;
     padding: 14px 28px;
@@ -40,7 +40,7 @@
     font-size: 16px;
     cursor: pointer;
     padding: 8px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .title {
@@ -86,11 +86,11 @@
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .tab.active {
-    background: var(--primary);
+    background: var(--color-primary);
     color: white;
 }
 
@@ -157,7 +157,7 @@
 }
 
 .statLabel {
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
     font-size: 14px;
 }
 
@@ -168,7 +168,7 @@
 
 .examples {
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
     padding-top: 8px;
     border-top: 1px solid #eee;
 }
@@ -231,7 +231,7 @@
 
 .dayType {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .dayBody {
@@ -242,7 +242,7 @@
 
 .dayDuration {
     font-size: 13px;
-    color: var(--primary);
+    color: var(--color-primary);
     font-weight: 500;
 }
 
@@ -250,7 +250,7 @@
     margin: 0;
     padding-left: 18px;
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .dayExercises li {
@@ -268,7 +268,7 @@
     font-size: 15px;
     font-weight: 600;
     margin: 16px 0 8px 0;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
 }
 
 .sectionTitle:first-child {
@@ -287,7 +287,7 @@
 .exerciseNum {
     width: 32px;
     height: 32px;
-    background: var(--primary);
+    background: var(--color-primary);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -311,7 +311,7 @@
 
 .exerciseDesc {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 /* Footer */
@@ -328,7 +328,7 @@
 .startBtn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, var(--primary) 0%, #5a55f0 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #5a55f0 100%);
     color: white;
     border: none;
     border-radius: 14px;

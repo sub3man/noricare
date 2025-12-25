@@ -193,3 +193,24 @@
 .actionIcon {
     font-size: 18px;
 }
+
+/* DM Button - more prominent style */
+.dmButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    background: var(--blue-50);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: var(--font-weight-medium);
+}
+
+.dmButton:hover {
+    background: var(--blue-100);
+    transform: translateY(-1px);
+}
