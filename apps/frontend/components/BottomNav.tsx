@@ -63,11 +63,16 @@ const navItems = [
 export default function BottomNav() {
     const pathname = usePathname();
 
+    // 로그인/회원가입 페이지에서는 네비게이션 숨기기
+    if (pathname === '/login' || pathname === '/signup') {
+        return null;
+    }
+
     return (
         <nav className={styles.nav}>
             <div className={styles.container}>
                 {navItems.map((item) => {
-                    const isActive = pathname === item.href;
+                    const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
                     return (
                         <Link
                             key={item.href}
@@ -83,3 +88,4 @@ export default function BottomNav() {
         </nav>
     );
 }
+

@@ -8,6 +8,11 @@ import styles from './Header.module.css';
 export default function Header() {
     const pathname = usePathname();
 
+    // 로그인/회원가입 페이지에서는 헤더 숨기기
+    if (pathname === '/login' || pathname === '/signup') {
+        return null;
+    }
+
     const getTitle = () => {
         switch (pathname) {
             case '/':
@@ -44,3 +49,4 @@ export default function Header() {
         </header>
     );
 }
+

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './page.module.css';
 import ExerciseSession from '@/components/ExerciseSession';
 import NutritionTracker from '@/components/NutritionTracker';
+import { supabase } from '@/lib/supabase';
 
 interface TodayExercise {
     id: number;
@@ -17,11 +19,43 @@ interface TodayExercise {
     completed: boolean;
 }
 
+interface UserInfo {
+    name: string;
+    isLoading: boolean;
+}
+
 export default function Home() {
-    const user = {
-        name: '관리자',
-        completedToday: 2,
-        totalToday: 4,
+    const router = useRouter();
+    const [user, setUser] = useState<UserInfo>({ name: '사용자', isLoading: true });
+
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
+    const checkAuth = async () => {
+        try {
+            const { data: { user: authUser } } = await supabase.auth.getUser();
+
+            if (!authUser) {
+                router.push('/login');
+                return;
+            }
+
+            // 프로필 정보 가져오기
+            const { data: profile } = await supabase
+                .from('user_profiles')
+                .select('name')
+                .eq('id', authUser.id)
+                .single();
+
+            setUser({
+                name: profile?.name || authUser.email?.split('@')[0] || '사용자',
+                isLoading: false,
+            });
+        } catch (error) {
+            console.error('Auth check error:', error);
+            router.push('/login');
+        }
     };
 
     const [todayExercises, setTodayExercises] = useState<TodayExercise[]>([
@@ -99,6 +133,15 @@ export default function Home() {
     };
 
     const completedCount = todayExercises.filter(e => e.completed).length;
+
+    // 로딩 중이면 로딩 표시
+    if (user.isLoading) {
+        return (
+            <div className="container animate-fade-in" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+                <p>불러오는 중...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="container animate-fade-in">
